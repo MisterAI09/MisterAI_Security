@@ -1,8 +1,11 @@
 name: Auto Update News
 on:
   schedule:
-    - cron: '0 */6 * * *' # يعمل كل 6 ساعات
-  workflow_dispatch: # للتشغيل اليدوي
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update:
