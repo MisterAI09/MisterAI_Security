@@ -3,63 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterAI Security | بوابة الأمن الرقمي</title>
+    <title>MisterAI Security | بوابة الأمن الرقمي الجزائرية</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Tajawal', sans-serif; } </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        .news-card:hover { transform: translateY(-5px); }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
+<body class="bg-[#0b0f1a] text-gray-100 min-h-screen">
 
-    <header class="border-b border-gray-800 p-6 bg-gray-900/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-green-400">MisterAI <span class="text-white">Security</span></h1>
-            <nav class="hidden md:flex space-x-reverse space-x-6 font-bold">
-                <a href="#" class="hover:text-green-400">آخر الأخبار</a>
-                <a href="#" class="hover:text-green-400">المقالات</a>
-                <a href="#" class="bg-green-600 px-4 py-2 rounded-lg text-white hover:bg-green-500 transition">فضاء الجزائر 🇩🇿</a>
+    <header class="border-b border-gray-800 bg-[#0b0f1a]/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center p-5">
+            <div class="flex items-center space-x-reverse space-x-2">
+                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-black font-bold text-xl shadow-lg shadow-green-500/20">M</div>
+                <h1 class="text-2xl font-bold tracking-tighter">MisterAI <span class="text-green-500">Security</span></h1>
+            </div>
+            <nav class="hidden md:flex space-x-reverse space-x-8 font-bold text-sm">
+                <a href="#news" class="hover:text-green-400 transition">الأخبار التقنية</a>
+                <a href="#dz" class="text-green-500 border border-green-500/30 px-5 py-2 rounded-full bg-green-500/10 hover:bg-green-500/20 transition">فضاء الجزائر 🇩🇿</a>
             </nav>
         </div>
     </header>
 
-    <section class="container mx-auto mt-16 p-6 text-center">
-        <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">حماية هويتك الرقمية <br><span class="text-green-500 underline">تبدأ من الوعي</span></h2>
-        <p class="text-gray-400 max-w-2xl mx-auto text-lg">منصة MisterAI لرصد التهديدات السيبرانية وتوعية المستخدم الجزائري بأحدث طرق الاحتيال وكيفية التصدي لها.</p>
+    <section class="container mx-auto py-24 px-6 text-center">
+        <span class="bg-green-500/10 text-green-400 border border-green-500/20 px-4 py-1 rounded-full text-xs font-bold mb-6 inline-block uppercase tracking-widest">منصة MisterAI الجزائرية</span>
+        <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+            حماية هويتك الرقمية <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-blue-500">تبدأ من الوعي</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-10 leading-relaxed font-medium">نراقب التهديدات، نحلل الثغرات، وننشر التوعية. الأخبار في موقعنا تُحدث تلقائياً لتواكِب كل جديد في عالم الأمن السيبراني.</p>
+        <div class="flex justify-center gap-4">
+            <a href="#news" class="bg-green-600 hover:bg-green-500 px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-green-900/40">استكشف الأخبار</a>
+            <a href="#dz" class="bg-gray-800 hover:bg-gray-700 px-8 py-3 rounded-xl font-bold transition border border-gray-700">دليل المواطن</a>
+        </div>
     </section>
 
-    <main class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-10 mt-10">
+    <main class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-12">
         
-        <div class="lg:col-span-2">
-            <h3 class="text-2xl font-bold mb-8 flex items-center">
-                <span class="w-2 h-8 bg-green-500 ml-4 rounded-full"></span>
-                نشرة الأخبار التقنية (تحديث آلي)
-            </h3>
-            <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="animate-pulse bg-gray-800 h-40 rounded-lg"></div>
-                <div class="animate-pulse bg-gray-800 h-40 rounded-lg"></div>
+        <div class="lg:col-span-2" id="news">
+            <div class="flex items-center justify-between mb-10">
+                <h3 class="text-2xl font-black flex items-center italic">
+                    <span class="w-2 h-8 bg-green-500 ml-4 rounded-full"></span>
+                    نشرة الأخبار الآلية
+                </h3>
+                <span class="flex items-center gap-2 text-xs font-bold text-red-500">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span> مباشر الآن
+                </span>
+            </div>
+            <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-right">
+                <div class="animate-pulse bg-gray-900 h-64 rounded-3xl border border-gray-800"></div>
+                <div class="animate-pulse bg-gray-900 h-64 rounded-3xl border border-gray-800"></div>
             </div>
         </div>
 
-        <aside class="space-y-6">
-            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 shadow-xl">
-                <h3 class="text-xl font-bold mb-6 text-green-400 flex items-center italic">
-                    <span class="ml-2">🇩🇿</span> نصائح للمجتمع الجزائري
+        <aside class="space-y-8" id="dz">
+            <div class="bg-[#0f172a] p-8 rounded-[2rem] border border-gray-800 shadow-2xl sticky top-28">
+                <h3 class="text-xl font-black mb-8 text-green-400 flex items-center gap-3 border-b border-gray-800 pb-5 uppercase">
+                    🇩🇿 توعية المواطن
                 </h3>
-                <div class="space-y-4">
-                    <div class="p-4 bg-gray-900/50 rounded-lg border-r-4 border-red-500">
-                        <p class="text-sm font-bold">تنبيه بريدي موب 💳</p>
-                        <p class="text-xs text-gray-400 mt-1">لا تشارك الرمز المكون من 6 أرقام مع أي شخص يدعي أنه من "مصلحة الزبائن".</p>
+                
+                <div class="space-y-8">
+                    <div class="bg-gray-900/50 p-5 rounded-2xl border-r-4 border-red-500">
+                        <p class="text-sm font-black text-red-400 mb-2">تنبيه بريدي موب (Baridimob)</p>
+                        <p class="text-xs text-gray-400 leading-relaxed font-bold">
+                            تجنب مشاركة رمز الـ OTP مع مجهولين. بريد الجزائر لا يتصل بك لطلب الأرقام السرية.
+                        </p>
                     </div>
-                    <div class="p-4 bg-gray-900/50 rounded-lg border-r-4 border-blue-500">
-                        <p class="text-sm font-bold">فيسبوك والخصوصية 🔐</p>
-                        <p class="text-xs text-gray-400 mt-1">فعل ميزة "المصادقة الثنائية" لتجنب عمليات اختراق الحسابات المنتشرة محلياً.</p>
+
+                    <div class="bg-gray-900/50 p-5 rounded-2xl border-r-4 border-blue-500">
+                        <p class="text-sm font-black text-blue-400 mb-2">التوظيف والمنح</p>
+                        <p class="text-xs text-gray-400 leading-relaxed font-bold">
+                            سجل فقط عبر المواقع الرسمية (.dz). الروابط المنتشرة في واتساب غالباً ما تكون للتجسس.
+                        </p>
+                    </div>
+
+                    <div class="bg-black/40 p-6 rounded-2xl border border-gray-800 text-center">
+                        <p class="text-[10px] text-gray-500 font-bold mb-3 tracking-[0.2em] uppercase">رقم التبليغ عن الجرائم الرقمية</p>
+                        <p class="text-4xl font-black text-white tracking-widest">1055</p>
+                        <p class="text-[10px] text-green-500 mt-3 font-black">الدرك الوطني الجزائري</p>
                     </div>
                 </div>
             </div>
         </aside>
     </main>
 
-    <footer class="border-t border-gray-800 mt-20 p-10 text-center text-gray-500">
-        <p>© 2026 MisterAI Security - صنع بكل فخر في الجزائر 🇩🇿</p>
+    <footer class="border-t border-gray-800 mt-32 py-16 text-center bg-black/20">
+        <p class="text-gray-500 font-bold text-sm italic">تم التطوير بواسطة <span class="text-green-500 uppercase">MisterAI</span></p>
+        <p class="text-[10px] text-gray-700 mt-4 tracking-[0.5em] uppercase">Algiers • Cyber Awareness • 2026</p>
     </footer>
 
     <script src="script.js"></script>
