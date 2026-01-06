@@ -11,8 +11,6 @@
         .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.5)); }
         @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.1); position: relative; transition: all 0.3s ease; }
-        .scanline { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #00f2ff, transparent); position: absolute; top: 0; left: 0; animation: scanning 4s linear infinite; z-index: 5; }
-        @keyframes scanning { 0% { top: 0; } 100% { top: 100%; } }
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
     </style>
@@ -21,37 +19,30 @@
     <header class="container mx-auto mb-16 flex justify-between items-center border-b border-cyan-500/20 pb-8">
         <div>
             <h1 class="text-4xl md:text-5xl glow-text italic tracking-tighter">MisterAI NETWORK</h1>
-            <p class="text-[10px] text-cyan-500 uppercase tracking-[0.6em] font-black mt-2">Algerian Security News System</p>
+            <p class="text-[10px] text-cyan-500 uppercase tracking-[0.6em] font-black mt-2 text-right">نظام توليد الأخبار والمقالات الجزائرية</p>
         </div>
         <div class="text-left hidden lg:block border-l border-gray-800 pl-6">
             <p class="text-[9px] text-gray-500 uppercase font-black mb-1">Status</p>
-            <p class="text-xs text-green-400 font-bold flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span> ACTIVE_NODE_DZ</p>
+            <p class="text-xs text-green-400 font-bold flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span> DZ_ACTIVE_NODE</p>
         </div>
     </header>
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
         <aside class="lg:col-span-1 space-y-6">
             <div class="cyber-card p-6 rounded-2xl border-orange-500/20">
-                <h3 class="text-orange-400 font-black text-xs mb-4 flex items-center gap-2 uppercase tracking-widest">
-                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> DZ_TRENDING
+                <h3 class="text-orange-400 font-black text-xs mb-4 flex items-center gap-2 uppercase tracking-widest text-right">
+                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> الترند في الجزائر
                 </h3>
-                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[300px] overflow-y-auto custom-scrollbar">
-                    <p class="text-gray-600 animate-pulse italic text-right">Scanning local nodes...</p>
+                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[400px] overflow-y-auto custom-scrollbar">
+                    <p class="text-gray-600 animate-pulse italic text-right">جارِ جلب آخر المقالات المحلية...</p>
                 </div>
-            </div>
-
-            <div class="cyber-card p-8 rounded-tr-[3rem] rounded-bl-[3rem]">
-                <div class="scanline"></div>
-                <h3 class="text-cyan-400 font-black text-xs mb-4 uppercase tracking-tighter text-right">Security_Protocol</h3>
-                <p class="text-red-500 font-bold text-[10px] mb-2 text-right">BARIDIMOB ALERT</p>
-                <p class="text-gray-400 text-xs text-right leading-relaxed">تنبيه أمني: لا تشارك كود OTP أو بيانات بطاقة الذهبية مع أي شخص لضمان أمن حسابك البريدي.</p>
             </div>
         </aside>
 
-        <div class="lg:col-span-3 space-y-8">
-            <div class="cyber-card rounded-[2.5rem] overflow-hidden aspect-video border-cyan-500/30 relative">
+        <div class="lg:col-span-3 space-y-8 text-right">
+            <div class="cyber-card rounded-[2.5rem] overflow-hidden aspect-video border-cyan-500/30 relative shadow-2xl shadow-cyan-500/5">
                 <div id="news-container" class="absolute inset-0 z-20 p-8 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto custom-scrollbar">
-                    <p class="text-cyan-500 font-black text-center col-span-full py-20 animate-pulse">FETCHING_GLOBAL_DATA...</p>
+                    <p class="text-cyan-500 font-black text-center col-span-full py-20 animate-pulse">INITIALIZING_GLOBAL_FEED...</p>
                 </div>
             </div>
         </div>
@@ -59,10 +50,9 @@
 
     <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-8">
         <div class="text-center md:text-right">
-            <p class="text-[11px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">© 2026 <span class="text-cyan-400">MisterAI Security</span></p>
-            <p class="text-[10px] text-gray-600 font-bold italic">Developed by Mustafa | الجزائر</p>
+            <p class="text-[11px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">© 2026 <span class="text-cyan-400 italic">MisterAI Security</span></p>
+            <p class="text-[10px] text-gray-600 font-bold italic">مصمم خصيصاً لمتابعة الشأن الجزائري</p>
         </div>
-        <div class="text-[8px] text-gray-800 font-black uppercase tracking-widest">Build: 2.0.5_LOCAL_TREND</div>
     </footer>
 
     <script src="script.js"></script>
