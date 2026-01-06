@@ -1,140 +1,36 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterAI | Cyber Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: 'Cairo', sans-serif; background: #020617; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; color: #e2e8f0; overflow-x: hidden; }
+<div class="lg:col-span-3 order-1 lg:order-2">
+    <div class="cyber-card rounded-[2.5rem] p-8 min-h-[550px] flex flex-col items-center justify-center text-center">
         
-        /* شعار MisterAI NETWORK في المنتصف وبدون ميلان */
-        .glow-text {
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff);
-            background-size: 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: animated_text 5s linear infinite;
-            padding: 0 15px;
-            display: inline-block;
-        }
-
-        @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        /* الإطار المشع باللون الأزرق النيوني */
-        .cyber-card {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            position: relative;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
-            animation: neon-pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes neon-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); border-color: rgba(0, 242, 255, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(0, 242, 255, 0.5); border-color: rgba(0, 242, 255, 0.7); }
-        }
-
-        .btn-action {
-            background: linear-gradient(135deg, #00f2ff, #0077ff);
-            color: #000;
-            font-weight: 900;
-            padding: 15px 30px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-action:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.4);
-            background: #fff;
-        }
-
-        .share-btn {
-            background: #1DA1F2;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-
-        .share-btn:hover { background: #0c85d0; transform: scale(1.05); }
-    </style>
-</head>
-<body class="p-4 md:p-10 text-right">
-
-    <header class="container mx-auto mb-16 border-b border-cyan-500/20 pb-10 text-center">
-        <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
-        <p class="text-[10px] text-cyan-500 uppercase tracking-[0.5em] font-black">Algerian Security & Media Intelligence</p>
-    </header>
-
-    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
-        <aside class="lg:col-span-1 order-2 lg:order-1">
-            <div class="cyber-card p-6 rounded-2xl border-orange-500/20" style="animation: none;">
-                <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> الترند في الجزائر
-                </h3>
-                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[500px] overflow-y-auto custom-scrollbar">
-                    </div>
-            </div>
-        </aside>
-
-        <div class="lg:col-span-3 order-1 lg:order-2">
-            <div class="cyber-card rounded-[2.5rem] p-12 min-h-[500px] flex flex-col items-center justify-center text-center">
-                
-                <div class="mb-8 p-10 bg-cyan-500/5 rounded-full border border-cyan-500/20">
-                    <i class="fas fa-tv text-6xl text-cyan-400 animate-pulse"></i>
-                </div>
-
-                <h2 class="text-2xl font-black mb-4 text-white">البث المباشر لـ <span class="text-cyan-400 uppercase">DZ PROG NAT</span></h2>
-                <p class="text-gray-400 text-sm mb-10 max-w-md mx-auto">اضغط على الزر أدناه لتشغيل القناة في نافذة خارجية آمنة ومستقرة لضمان أفضل جودة مشاهدة.</p>
-                
-                <div class="flex flex-col md:flex-row gap-6 items-center">
-                    <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432888.m3u8" target="_blank" class="btn-action">
-                        <i class="fas fa-play"></i> تشغيل القناة الآن
-                    </a>
-
-                    <button onclick="shareOnTwitter()" class="share-btn">
-                        <i class="fab fa-twitter"></i> مشاركة على تويتر
-                    </button>
-                </div>
-                
-                <p class="mt-8 text-[9px] text-gray-600 font-bold uppercase tracking-widest">Link Status: Secure_External_Node</p>
-            </div>
+        <div class="mb-6 w-full max-w-md overflow-hidden rounded-xl border-2 border-cyan-500/30 shadow-2xl shadow-cyan-500/20">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/11113568355802246947_0" alt="مباراة الجزائر والكونغو" class="w-full h-auto object-cover">
         </div>
-    </main>
 
-    <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10 text-center">
-        <p class="text-[12px] font-black text-gray-400 uppercase tracking-[0.3em]">
-            © 2026 <span class="text-cyan-400">MisterAI Security</span>. الحقوق محفوظة لمصطفى
-        </p>
-    </footer>
+        <h2 class="text-2xl font-black mb-2 text-white uppercase tracking-tighter">الجزائر 🇩🇿 vs الكونغو الديمقراطية 🇨🇩</h2>
+        <p class="text-orange-400 font-bold text-sm mb-6 animate-pulse">البث المباشر يبدأ اليوم الساعة 17:00 بتوقيت الجزائر</p>
+        
+        <div class="flex flex-col md:flex-row gap-6 items-center">
+            <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432888.m3u8" target="_blank" class="btn-action">
+                <i class="fas fa-play-circle"></i> رابط البث المباشر (رسمي)
+            </a>
 
-    <script>
-        // وظيفة المشاركة على تويتر
-        function shareOnTwitter() {
-            const url = window.location.href;
-            const text = "أتابع الآن آخر أخبار الترند والبرامج الجزائرية على شبكة MisterAI NETWORK! 🇩🇿⚡";
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-        }
-    </script>
-    <script src="script.js"></script>
-    <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
-</body>
-</html>
+            <button onclick="shareMatch()" class="share-btn">
+                <i class="fab fa-twitter"></i> شارك التوقيت والرابط
+            </button>
+        </div>
+        
+        <div class="mt-8 grid grid-cols-3 gap-4 text-[9px] text-gray-500 font-black uppercase tracking-widest">
+            <div>الجزائر: 17:00</div>
+            <div>مصر: 18:00</div>
+            <div>السعودية: 19:00</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // وظيفة المشاركة الاحترافية لمباراة اليوم
+    function shareMatch() {
+        const url = window.location.href;
+        const text = "🚨 حصرياً: رابط البث المباشر لمباراة الجزائر والكونغو الديمقراطية 🇩🇿🆚🇨🇩 اليوم الساعة 17:00 بتوقيت الجزائر. الرابط حقيقي وشغال 100% على شبكة MisterAI NETWORK! 👇";
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+    }
+</script>
