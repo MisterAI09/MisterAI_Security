@@ -66,9 +66,6 @@
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
-
-        /* ستايل النافذة المنبثقة */
-        #news-modal { transition: opacity 0.3s ease; }
     </style>
 </head>
 <body class="p-4 md:p-10">
@@ -102,7 +99,7 @@
                 </div>
             </div>
             
-            <div class="cyber-card p-8 rounded-2xl bg-cyan-500/5 text-center">
+            <div class="cyber-card p-8 rounded-2xl bg-cyan-500/5 text-center border-cyan-500/20">
                 <p class="text-[10px] text-cyan-500/60 mb-3 uppercase font-black tracking-widest">Gendarmerie Nationale</p>
                 <p class="text-5xl font-black text-white tracking-widest">1055</p>
             </div>
@@ -114,6 +111,25 @@
                     <p class="text-cyan-500 font-black text-center col-span-full py-20 animate-pulse">INITIALIZING_SECURE_FEED...</p>
                 </div>
             </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Latency</p>
+                    <p class="text-sm font-black text-cyan-400">24ms</p>
+                </div>
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Encryption</p>
+                    <p class="text-sm font-black text-cyan-400">AES-256</p>
+                </div>
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Sync</p>
+                    <p class="text-sm font-black text-cyan-400">Stable</p>
+                </div>
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Security</p>
+                    <p class="text-sm font-black text-green-500 uppercase">Verified</p>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -123,21 +139,9 @@
                 <p class="text-[11px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">© 2026 <span class="text-cyan-400">MisterAI Security</span></p>
                 <p class="text-[10px] text-gray-600 font-bold">تم التطوير بواسطة <span class="text-white">مصطفى</span> | منصة التوعية الأمنية الجزائرية</p>
             </div>
-            <div class="text-[8px] text-gray-800 font-black uppercase tracking-widest">System Build: 2.0.1_STABLE</div>
+            <div class="text-[8px] text-gray-800 font-black uppercase tracking-widest">Build: 2.0.2_STABLE</div>
         </div>
     </footer>
-
-    <div id="news-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
-        <div class="cyber-card w-full max-w-5xl h-[90vh] rounded-[2rem] overflow-hidden flex flex-col border-cyan-500/50">
-            <div class="p-4 border-b border-cyan-500/20 flex justify-between items-center bg-black/40">
-                <span class="text-cyan-400 font-black text-[10px] tracking-[0.5em] uppercase">MisterAI_Secure_Viewer</span>
-                <button onclick="closeNews()" class="text-white hover:text-red-500 transition-all font-black text-xl px-4">✕</button>
-            </div>
-            <div class="flex-grow bg-white">
-                <iframe id="news-frame" src="" class="w-full h-full border-none"></iframe>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 
