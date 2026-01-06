@@ -17,7 +17,7 @@
             overflow-x: hidden;
         }
 
-        /* شعار MisterAI NETWORK في المنتصف وبدون ميلان */
+        /* شعار MisterAI NETWORK في المنتصف */
         .glow-text {
             font-weight: 900;
             text-transform: uppercase;
@@ -68,6 +68,7 @@
             font-size: 14px;
             transition: all 0.4s ease;
             text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+            cursor: pointer;
         }
 
         .cyber-btn-glass:hover {
@@ -75,7 +76,6 @@
             border-color: #00f2ff;
             box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
             transform: translateY(-5px);
-            color: #fff;
         }
 
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
@@ -106,38 +106,24 @@
                 
                 <div class="text-center mb-10">
                     <h2 class="text-2xl font-black text-white mb-2">🏆 بث مباريات اليوم</h2>
-                    <p class="text-cyan-400 text-xs font-bold animate-pulse">مباراة الجزائر والكونغو - الساعة 17:00</p>
+                    <p class="text-cyan-400 text-xs font-bold animate-pulse">الجزائر ضد الكونغو - 17:00 بتوقيت الجزائر</p>
                     <button onclick="shareMatch()" class="mt-4 inline-flex items-center gap-2 bg-[#1DA1F2] text-white px-6 py-2 rounded-full text-[11px] font-bold hover:scale-105 transition-all">
-                        <i class="fab fa-twitter"></i> شارك الرابط على تويتر
+                        <i class="fab fa-twitter"></i> شارك الرابط لتويتر
                     </button>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
                         <span class="block text-yellow-500 font-bold text-[10px] mb-3 uppercase">MAX 1 AR 4K</span>
-                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432904.m3u8" target="_blank" class="cyber-btn-glass">
-                            <i class="fas fa-play-circle"></i> تشغيل خارجي
+                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432904.m3u8" target="_blank" class="cyber-btn-glass ad-trigger">
+                            <i class="fas fa-play-circle"></i> تشغيل مباشر
                         </a>
                     </div>
 
                     <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
                         <span class="block text-cyan-400 font-bold text-[10px] mb-3 uppercase">MAX 1 AR FHD</span>
-                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432903.m3u8" target="_blank" class="cyber-btn-glass">
-                            <i class="fas fa-play-circle"></i> تشغيل خارجي
-                        </a>
-                    </div>
-
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                        <span class="block text-yellow-500 font-bold text-[10px] mb-3 uppercase">MAX 2 AR 4K</span>
-                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432900.m3u8" target="_blank" class="cyber-btn-glass">
-                            <i class="fas fa-play-circle"></i> تشغيل خارجي
-                        </a>
-                    </div>
-
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                        <span class="block text-cyan-400 font-bold text-[10px] mb-3 uppercase">MAX 2 AR FHD</span>
-                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432899.m3u8" target="_blank" class="cyber-btn-glass">
-                            <i class="fas fa-play-circle"></i> تشغيل خارجي
+                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432903.m3u8" target="_blank" class="cyber-btn-glass ad-trigger">
+                            <i class="fas fa-play-circle"></i> تشغيل مباشر
                         </a>
                     </div>
                 </div>
@@ -146,21 +132,48 @@
     </main>
 
     <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10 text-center">
-        <p class="text-[12px] font-black text-gray-400 uppercase tracking-[0.3em]">
-            © 2026 <span class="text-cyan-400">MisterAI Security</span>. الحقوق محفوظة
-        </p>
-        <p class="text-[10px] text-gray-600 font-bold italic mt-2">
-            بواسطة مصطفى | مستشار الذكاء الاصطناعي
-        </p>
+        <p class="text-[12px] font-black text-gray-400 uppercase tracking-[0.3em]">© 2026 <span class="text-cyan-400">MisterAI Security</span>. الحقوق محفوظة لمصطفى</p>
     </footer>
 
+    <div id="ads-container">
+        <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
+    </div>
+
     <script>
+        // إعدادات توقيت المباراة (بالدقائق)
+        const HALF_TIME = 45 * 60 * 1000; // 45 دقيقة
+        const BREAK_TIME = 15 * 60 * 1000; // 15 دقيقة استراحة
+
+        function controlAds() {
+            const adsBox = document.getElementById('ads-container');
+            adsBox.style.display = 'none'; // إخفاء الإعلان فوراً (بداية الشوط الأول)
+            
+            // ظهور الإعلان في الاستراحة بعد 45 دقيقة
+            setTimeout(() => {
+                adsBox.style.display = 'block';
+                
+                // إخفاء الإعلان مجدداً بعد انتهاء الاستراحة (بداية الشوط الثاني)
+                setTimeout(() => {
+                    adsBox.style.display = 'none';
+                    
+                    // العودة النهائية للإعلانات بعد نهاية المباراة
+                    setTimeout(() => {
+                        adsBox.style.display = 'block';
+                    }, HALF_TIME);
+                }, BREAK_TIME);
+            }, HALF_TIME);
+        }
+
+        // تفعيل النظام عند الضغط على أي زر تشغيل
+        document.querySelectorAll('.ad-trigger').forEach(btn => {
+            btn.addEventListener('click', controlAds);
+        });
+
         function shareMatch() {
             const text = "🚨 تابعوا مباراة الجزائر والكونغو الديمقراطية الآن! بث مباشر شغال 100% على شبكة MisterAI NETWORK 🇩🇿⚡";
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
     </script>
     <script src="script.js"></script>
-    <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
 </body>
 </html>
