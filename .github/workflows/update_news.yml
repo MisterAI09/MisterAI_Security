@@ -13,14 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Fetch Data
+      - name: Fetch Global Tech Data
         run: |
-          curl "https://newsapi.org/v2/everything?q=cybersecurity+hacking&language=ar&sortBy=publishedAt&apiKey=${{ secrets.NEWS_API_KEY }}" > news.json
+          curl "https://newsapi.org/v2/everything?q=(cybersecurity+OR+tech+OR+hacking+OR+AI)&language=ar&sortBy=publishedAt&pageSize=20&apiKey=${{ secrets.NEWS_API_KEY }}" > news.json
 
       - name: Commit and Push
         run: |
           git config --local user.email "misterai@github.com"
           git config --local user.name "MisterAI-Bot"
           git add news.json
-          git commit -m "Update News Feed" || echo "No changes to commit"
+          git commit -m "Global Tech News Update" || echo "No changes"
           git push
