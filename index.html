@@ -16,7 +16,7 @@
             overflow-x: hidden;
         }
 
-        /* الشعار في المنتصف مع تأثير RGB */
+        /* العنوان في المنتصف - مستقيم وبدون ميلان مع ضمان ظهور حرف K */
         .glow-text {
             font-weight: 900;
             text-transform: uppercase;
@@ -26,7 +26,8 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: animated_text 5s linear infinite;
-            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.4));
+            padding: 0 10px; /* مسافة إضافية لضمان ظهور حرف K كاملاً */
+            display: inline-block;
         }
 
         @keyframes animated_text {
@@ -35,10 +36,19 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* الإطارات مع الشعاع الأزرق اللامع */
         .cyber-card {
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 255, 0.1);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+            animation: neon-pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes neon-pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 242, 255, 0.1), inset 0 0 5px rgba(0, 242, 255, 0.05); border-color: rgba(0, 242, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 242, 255, 0.4), inset 0 0 10px rgba(0, 242, 255, 0.2); border-color: rgba(0, 242, 255, 0.6); }
         }
 
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
@@ -49,7 +59,7 @@
 
     <header class="container mx-auto mb-16 border-b border-cyan-500/20 pb-10 text-center">
         <div class="inline-block">
-            <h1 class="text-5xl md:text-7xl glow-text italic tracking-tighter mb-4">MisterAI NETWORK</h1>
+            <h1 class="text-5xl md:text-7xl glow-text tracking-tighter mb-4">MisterAI NETWORK</h1>
             <div class="flex justify-center items-center gap-4">
                 <span class="h-[1px] w-12 bg-cyan-500/50"></span>
                 <p class="text-[10px] text-cyan-500 uppercase tracking-[0.5em] font-black">Algerian Intelligence System</p>
@@ -60,7 +70,7 @@
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
         <aside class="lg:col-span-1">
-            <div class="cyber-card p-6 rounded-2xl border-orange-500/20">
+            <div class="cyber-card p-6 rounded-2xl border-orange-500/20" style="animation: none; border-color: rgba(249, 115, 22, 0.3);">
                 <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2 uppercase">
                     <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> الترند في الجزائر
                 </h3>
@@ -70,7 +80,7 @@
         </aside>
 
         <div class="lg:col-span-3">
-            <div class="cyber-card rounded-[2.5rem] p-8 min-h-[500px] border-cyan-500/30">
+            <div class="cyber-card rounded-[2.5rem] p-8 min-h-[500px]">
                 <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto custom-scrollbar">
                     <p class="text-cyan-500 font-black text-center col-span-full py-20 animate-pulse uppercase">Syncing_Global_Data...</p>
                 </div>
