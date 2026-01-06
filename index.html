@@ -6,101 +6,58 @@
     <title>MisterAI | Cyber Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            background: #020617; 
-            background-image: radial-gradient(#1e293b 1px, transparent 1px);
-            background-size: 30px 30px;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-
-        /* العنوان في المنتصف - مستقيم وبدون ميلان مع ضمان ظهور حرف K */
-        .glow-text {
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff);
-            background-size: 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: animated_text 5s linear infinite;
-            padding: 0 10px; /* مسافة إضافية لضمان ظهور حرف K كاملاً */
-            display: inline-block;
-        }
-
-        @keyframes animated_text {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* الإطارات مع الشعاع الأزرق اللامع */
-        .cyber-card {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            position: relative;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
-            animation: neon-pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes neon-pulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(0, 242, 255, 0.1), inset 0 0 5px rgba(0, 242, 255, 0.05); border-color: rgba(0, 242, 255, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(0, 242, 255, 0.4), inset 0 0 10px rgba(0, 242, 255, 0.2); border-color: rgba(0, 242, 255, 0.6); }
-        }
-
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
+        body { font-family: 'Cairo', sans-serif; background: #020617; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; color: #e2e8f0; overflow-x: hidden; }
+        .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; padding: 0 10px; display: inline-block; }
+        @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.3); position: relative; box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); animation: neon-pulse 3s infinite ease-in-out; }
+        @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 10px rgba(0, 242, 255, 0.1); border-color: rgba(0, 242, 255, 0.2); } 50% { box-shadow: 0 0 25px rgba(0, 242, 255, 0.4); border-color: rgba(0, 242, 255, 0.6); } }
+        
+        .video-container { position: relative; width: 100%; height: 450px; background: #000; border-radius: 1.5rem; overflow: hidden; }
+        .btn-play { background: #00f2ff; color: #000; font-weight: 900; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .btn-play:hover { background: #fff; transform: scale(1.05); }
     </style>
 </head>
 <body class="p-4 md:p-10">
 
     <header class="container mx-auto mb-16 border-b border-cyan-500/20 pb-10 text-center">
-        <div class="inline-block">
-            <h1 class="text-5xl md:text-7xl glow-text tracking-tighter mb-4">MisterAI NETWORK</h1>
-            <div class="flex justify-center items-center gap-4">
-                <span class="h-[1px] w-12 bg-cyan-500/50"></span>
-                <p class="text-[10px] text-cyan-500 uppercase tracking-[0.5em] font-black">Algerian Intelligence System</p>
-                <span class="h-[1px] w-12 bg-cyan-500/50"></span>
-            </div>
-        </div>
+        <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
+        <p class="text-[10px] text-cyan-500 uppercase tracking-[0.5em] font-black">Algerian Security Intelligence</p>
     </header>
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
         <aside class="lg:col-span-1">
-            <div class="cyber-card p-6 rounded-2xl border-orange-500/20" style="animation: none; border-color: rgba(249, 115, 22, 0.3);">
-                <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2 uppercase">
+            <div class="cyber-card p-6 rounded-2xl border-orange-500/20" style="animation: none;">
+                <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> الترند في الجزائر
                 </h3>
-                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[600px] overflow-y-auto custom-scrollbar text-right">
+                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[500px] overflow-y-auto text-right">
                     </div>
             </div>
         </aside>
 
         <div class="lg:col-span-3">
-            <div class="cyber-card rounded-[2.5rem] p-8 min-h-[500px]">
-                <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto custom-scrollbar">
-                    <p class="text-cyan-500 font-black text-center col-span-full py-20 animate-pulse uppercase">Syncing_Global_Data...</p>
+            <div class="cyber-card rounded-[2.5rem] p-4 min-h-[500px] flex flex-col items-center justify-center">
+                <div class="video-container shadow-2xl">
+                    <video id="my-video" class="video-js vjs-big-play-centered w-full h-full" controls preload="auto" data-setup='{}'>
+                        <source src="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432888.m3u8" type="application/x-mpegURL">
+                    </video>
+                </div>
+                <div class="mt-6 flex items-center gap-6">
+                    <span class="text-cyan-400 font-black text-sm uppercase tracking-widest animate-pulse">LIVE: DZ PROG NAT</span>
+                    <button onclick="location.reload()" class="btn-play text-xs">تحديث البث</button>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10 text-center">
-        <div class="space-y-2">
-            <p class="text-[12px] font-black text-gray-400 uppercase tracking-[0.3em]">
-                © 2026 <span class="text-cyan-400">MisterAI Security</span>. All Rights Reserved
-            </p>
-            <p class="text-[10px] text-gray-600 font-bold italic">
-                تم التطوير بواسطة <span class="text-white border-b border-cyan-500/30 pb-0.5">مصطفى (MisterAI)</span> | خبير حلول الذكاء الاصطناعي
-            </p>
-        </div>
+    <footer class="container mx-auto mt-20 text-center border-t border-white/5 pt-10">
+        <p class="text-[10px] text-gray-500 uppercase tracking-widest">© 2026 MisterAI Security | Developed by Mustafa</p>
     </footer>
 
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script src="script.js"></script>
-    <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
-
 </body>
 </html>
