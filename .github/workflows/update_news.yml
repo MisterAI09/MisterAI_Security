@@ -1,8 +1,8 @@
 name: Auto Update News
 on:
   schedule:
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
+    - cron: '0 */6 * * *' # يعمل تلقائياً كل 6 ساعات
+  workflow_dispatch: # يسمح لك بالتشغيل اليدوي
 
 permissions:
   contents: write
@@ -15,13 +15,16 @@ jobs:
 
       - name: Fetch Global Tech News
         run: |
-          # استعلام موسع باللغة العربية لضمان جلب أخبار متنوعة دائماً
-          curl "https://newsapi.org/v2/everything?q=(تكنولوجيا+OR+اختراق+OR+أمن+سيبراني+OR+ذكاء+اصطناعي)&sortBy=publishedAt&language=ar&apiKey=${{ secrets.NEWS_API_KEY }}" > news.json
+          curl -G "https://newsapi.org/v2/everything" \
+          --data-urlencode "q=(تكنولوجيا OR اختراق OR أمن OR ذكاء)" \
+          --data-urlencode "language=ar" \
+          --data-urlencode "sortBy=publishedAt" \
+          --data-urlencode "apiKey=${{ secrets.NEWS_API_KEY }}" > news.json
 
       - name: Commit and Push
         run: |
           git config --local user.email "misterai@github.com"
           git config --local user.name "MisterAI-Bot"
           git add news.json
-          git commit -m "تحديث الأخبار العالمية - MisterAI Security" || echo "No changes"
+          git commit -m "تحديث الأخبار العالمية - MisterAI Security" || echo "No changes to commit"
           git push
