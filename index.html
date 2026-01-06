@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterAI | احتفال التأهل - عادل بولبينة</title>
+    <title>MisterAI | احتفال التأهل - الجزائر</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,11 +23,13 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
     </style>
 </head>
-<body class="p-4 md:p-10 text-right" onload="launchStars()">
+<body class="p-4 md:p-10 text-right" onload="launchCelebration()">
 
     <header class="container mx-auto mb-16 border-b border-cyan-500/20 pb-10 text-center">
         <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
-        <p class="text-[10px] text-cyan-500 uppercase tracking-[0.6em] font-black">Algerian Security & Media Intelligence</p>
+        <p class="text-[10px] text-green-400 uppercase tracking-[0.6em] font-black animate-pulse">
+            Algerian Victory | رسمياً: الجزائر في ربع النهائي 🇩🇿
+        </p>
     </header>
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -46,18 +48,18 @@
             <div class="bg-black/20 p-8 md:p-16 rounded-[3rem] border border-cyan-500/20 backdrop-blur-md shadow-2xl text-center">
                 
                 <div class="mb-6">
-                    <i class="fas fa-crown text-7xl text-yellow-500 animate-bounce mb-4"></i>
-                    <h2 class="text-4xl md:text-6xl font-black text-white mb-4 uppercase tracking-tighter">عادل بولبينة</h2>
-                    <p class="text-green-400 font-black text-lg mb-10 tracking-widest">بطل التأهل لربع النهائي 🇩🇿</p>
+                    <i class="fas fa-trophy text-7xl text-yellow-500 animate-bounce mb-4"></i>
+                    <h2 class="text-4xl md:text-6xl font-black text-white mb-4 uppercase tracking-tighter">الجزائر تتخطّى الكونغو</h2>
+                    <p class="text-green-400 font-black text-lg mb-10 tracking-widest">وتعبر إلى ربع نهائي كأس أمم إفريقيا</p>
                 </div>
 
-                <button onclick="watchVideoExternally()" class="bg-gradient-to-r from-green-500 to-cyan-600 text-white px-12 py-5 rounded-2xl font-black text-2xl shadow-2xl hover:scale-110 transition-all active:scale-95 border-b-4 border-green-800">
-                    <i class="fas fa-play-circle ml-3"></i> شاهد الهدف والاحتفال
+                <button onclick="launchCelebration()" class="bg-gradient-to-r from-green-500 to-cyan-600 text-white px-12 py-5 rounded-2xl font-black text-2xl shadow-2xl hover:scale-110 transition-all active:scale-95 border-b-4 border-green-800">
+                    <i class="fas fa-magic ml-3"></i> احتفل معنا
                 </button>
 
                 <div class="mt-12">
                     <button onclick="shareWin()" class="text-[#1DA1F2] font-black text-sm flex items-center justify-center gap-2 mx-auto">
-                        <i class="fab fa-twitter text-xl"></i> شارك فرحة الفوز
+                        <i class="fab fa-twitter text-xl"></i> شارك الفرحة
                     </button>
                 </div>
             </div>
@@ -71,27 +73,33 @@
     </footer>
 
     <script>
-        // دالة النجوم الاحتفالية
-        function launchStars() {
+        // دالة الاحتفال بالنجوم وكرات القدم
+        function launchCelebration() {
+            // نجوم بألوان الجزائر والذهب
             confetti({
                 particleCount: 150,
                 spread: 70,
                 origin: { y: 0.6 },
                 colors: ['#22c55e', '#ffffff', '#fbbf24', '#00f2ff']
             });
-        }
 
-        // وظيفة المشاهدة الخارجية بالرابط الجديد
-        function watchVideoExternally() {
-            launchStars(); // إطلاق النجوم
-            setTimeout(() => {
-                // فتح رابط تويتر الجديد في صفحة جديدة
-                window.open("https://x.com/i/status/2008631260042645817", "_blank");
-            }, 800);
+            // كرات قدم تتطاير
+            confetti({
+                particleCount: 50,
+                spread: 100,
+                origin: { x: Math.random(), y: Math.random() - 0.2 },
+                shapes: ['circle'], // يمكن تغييرها لشكل كرة قدم إذا كان متاحاً
+                scalar: 0.8,
+                colors: ['#000000', '#ffffff', '#aaaaaa'] // ألوان كرة القدم
+            });
+
+            // تكرار الاحتفال
+            setTimeout(launchCelebration, 1500); // كل 1.5 ثانية
+            setTimeout(launchCelebration, 3000);
         }
 
         function shareWin() {
-            const text = "عادل بولبينة بطل الليلة! 🇩🇿✅ شاهد الهدف التاريخي على شبكة MisterAI NETWORK! 👇";
+            const text = "الجزائر في ربع النهائي! 🇩🇿✅ احتفل معنا بالتأهل التاريخي على شبكة MisterAI NETWORK! 👇";
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
     </script>
