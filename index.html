@@ -16,7 +16,7 @@
             overflow-x: hidden;
         }
 
-        /* أنيميشن العنوان اللامع والمتحرك بالألوان */
+        /* أنيميشن العنوان اللامع والمتحرك بالألوان RGB */
         .glow-text {
             font-weight: 900;
             text-transform: uppercase;
@@ -85,6 +85,7 @@
     </header>
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
         <aside class="lg:col-span-1 space-y-6">
             <div class="cyber-card p-8 rounded-tr-[3rem] rounded-bl-[3rem]">
                 <div class="scanline"></div>
@@ -101,13 +102,34 @@
             <div class="cyber-card p-8 rounded-2xl bg-cyan-500/5 text-center">
                 <p class="text-[10px] text-cyan-500/60 mb-3 uppercase font-black tracking-widest">Digital Crime Report</p>
                 <p class="text-5xl font-black text-white tracking-widest">1055</p>
+                <div class="mt-6 py-2 bg-cyan-400 text-black text-[10px] font-black uppercase tracking-widest">Gendarmerie Nationale</div>
             </div>
         </aside>
 
         <div class="lg:col-span-3 space-y-8">
             <div class="cyber-card rounded-[2.5rem] overflow-hidden aspect-video neon-border relative group">
                 <div id="news-container" class="absolute inset-0 z-20 p-8 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto custom-scrollbar">
-                    <p class="text-cyan-500 font-black text-center col-span-full py-20">INITIALIZING_SECURE_FEED...</p>
+                    <p class="text-cyan-500 font-black text-center col-span-full py-20 animate-pulse uppercase tracking-widest">Initializing_Secure_Feed...</p>
+                </div>
+                <div class="absolute top-6 right-8 z-30 text-[9px] text-cyan-400/50 font-black tracking-widest uppercase bg-black/50 px-3 py-1 rounded">System_Log: Decrypted</div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Latency</p>
+                    <p class="text-sm font-black text-cyan-400">24ms</p>
+                </div>
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Encryption</p>
+                    <p class="text-sm font-black text-cyan-400">AES-256</p>
+                </div>
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Nodes</p>
+                    <p class="text-sm font-black text-cyan-400">Global</p>
+                </div>
+                <div class="cyber-card p-5 rounded-xl text-center">
+                    <p class="text-[9px] text-gray-600 uppercase font-black">Level</p>
+                    <p class="text-sm font-black text-green-500 uppercase">Secure</p>
                 </div>
             </div>
         </div>
@@ -117,12 +139,15 @@
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-right">
                 <p class="text-[11px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">© 2026 <span class="text-cyan-400">MisterAI Security</span></p>
-                <p class="text-[10px] text-gray-600 font-bold">تم التطوير بواسطة <span class="text-white">مصطفى</span> | منصة الأمن الرقمي</p>
+                <p class="text-[10px] text-gray-600 font-bold">تم التطوير بواسطة <span class="text-white">مصطفى</span> | منصة التوعية الأمنية</p>
             </div>
             <div class="text-[8px] text-gray-800 font-black uppercase tracking-widest">Build: 2.0.1_STABLE</div>
         </div>
     </footer>
 
     <script src="script.js"></script>
+
+    <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
+
 </body>
 </html>
