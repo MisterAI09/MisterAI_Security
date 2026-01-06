@@ -10,15 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body { font-family: 'Cairo', sans-serif; background: #020617; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; color: #e2e8f0; overflow-x: hidden; }
-        
         .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; padding: 0 20px; display: inline-block; }
         @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
         .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.3); position: relative; box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); animation: neon-pulse 3s infinite ease-in-out; }
         @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); border-color: rgba(0, 242, 255, 0.2); } 50% { box-shadow: 0 0 35px rgba(0, 242, 255, 0.5); border-color: rgba(0, 242, 255, 0.7); } }
-
-        .star-button { background: linear-gradient(135deg, #fbbf24, #d97706); color: black; padding: 18px 35px; border-radius: 50px; font-weight: 900; font-size: 18px; transition: 0.3s; cursor: pointer; border: none; }
-        .star-button:hover { transform: scale(1.1) rotate(2deg); box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
+        
+        /* مشغل الفيديو المنبثق */
+        #video-modal { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { position: relative; width: 100%; max-width: 800px; border: 2px solid #00f2ff; border-radius: 20px; overflow: hidden; box-shadow: 0 0 50px rgba(0,242,255,0.5); }
     </style>
 </head>
 <body class="p-4 md:p-10 text-right" onload="launchStars()">
@@ -29,88 +28,60 @@
     </header>
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
         <aside class="lg:col-span-1 order-2 lg:order-1">
             <div class="cyber-card p-6 rounded-2xl">
-                <h3 class="text-orange-400 font-black text-xs mb-6 uppercase flex items-center gap-2">
-                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> الترند الآن
-                </h3>
-                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[400px] overflow-y-auto">
-                    </div>
+                <h3 class="text-orange-400 font-black text-xs mb-6 uppercase">🔥 الترند الجزائري</h3>
+                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[400px] overflow-y-auto"></div>
             </div>
         </aside>
 
         <div class="lg:col-span-3 order-1 lg:order-2">
             <div class="cyber-card rounded-[3rem] p-12 text-center">
-                
-                <div class="mb-6">
-                    <i class="fas fa-crown text-7xl text-yellow-500 animate-bounce"></i>
-                </div>
-
+                <i class="fas fa-crown text-7xl text-yellow-500 animate-bounce mb-6"></i>
                 <h2 class="text-4xl md:text-6xl font-black text-white mb-6 uppercase italic tracking-tighter">عادل بولبينة</h2>
-                
-                <div class="inline-block bg-green-500/20 text-green-400 px-6 py-2 rounded-full border border-green-500/30 font-black text-sm mb-10">
-                    🏆 أفضل لاعب في المباراة
-                </div>
+                <div class="inline-block bg-green-500/20 text-green-400 px-6 py-2 rounded-full border border-green-500/30 font-black text-sm mb-10">🏆 بطل التأهل لربع النهائي</div>
+                <p class="text-gray-300 text-lg mb-12 max-w-2xl mx-auto font-bold">شاهد اللحظة التاريخية وهدف الفوز مباشرة من هنا!</p>
 
-                <p class="text-gray-300 text-lg mb-12 max-w-2xl mx-auto font-bold leading-relaxed">
-                    قاد المنتخب الوطني للتأهل إلى ربع نهائي كأس أمم إفريقيا بعد تسجيله هدف الفوز الحاسم ببراعة.
-                </p>
-
-                <div class="space-y-6">
-                    <button onclick="celebratePlayer()" class="star-button">
-                        <i class="fas fa-star ml-2"></i> احتفل مع البطل وشاهد الهدف
-                    </button>
-                    
-                    <div class="flex justify-center gap-6 mt-10">
-                        <button onclick="shareWin()" class="text-[#1DA1F2] font-black text-sm flex items-center gap-2">
-                            <i class="fab fa-twitter text-xl"></i> انشر فخر الجزائر
-                        </button>
-                    </div>
-                </div>
-
+                <button onclick="showSecretVideo()" class="bg-gradient-to-r from-yellow-500 to-orange-600 text-black px-10 py-5 rounded-full font-black text-xl shadow-2xl hover:scale-110 transition-all active:scale-95">
+                    <i class="fas fa-play-circle ml-2"></i> اضغط للمفاجأة والهدف
+                </button>
             </div>
         </div>
     </main>
 
-    <footer class="container mx-auto mt-24 text-center border-t border-white/5 pt-10">
-        <p class="text-[12px] text-gray-500 font-black uppercase tracking-widest italic">
-            Developed by Mustafa (MisterAI) - مبروك التأهل لربع النهائي
-        </p>
-    </footer>
+    <div id="video-modal" onclick="closeVideo()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button onclick="closeVideo()" class="absolute top-4 right-4 text-white text-3xl z-50"><i class="fas fa-times"></i></button>
+            <video id="goal-video" controls class="w-full">
+                <source src="https://video.twimg.com/ext_tw_video/2008621716335890433/pu/vid/avc1/1280x720/p8kA2kw56avReGAd.mp4?tag=12" type="video/mp4">
+            </video>
+        </div>
+    </div>
 
     <script>
-        // سكريبت النجوم الاحتفالية
         function launchStars() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#22c55e', '#ffffff', '#fbbf24', '#00f2ff']
-            });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#22c55e', '#ffffff', '#fbbf24', '#00f2ff'] });
         }
 
-        function celebratePlayer() {
-            launchStars();
-            // تكرار النجوم ثلاث مرات
-            setTimeout(launchStars, 500);
-            setTimeout(launchStars, 1000);
+        function showSecretVideo() {
+            launchStars(); // أطلق النجوم
+            const modal = document.getElementById('video-modal');
+            const video = document.getElementById('goal-video');
+            modal.style.display = 'flex';
+            video.play(); // تشغيل الفيديو تلقائياً
             
-            // فتح الهدف في صفحة جديدة
-            setTimeout(() => {
-                window.open("https://www.youtube.com/results?search_query=هدف+عادل+بولبينة+اليوم+الجزائر", "_blank");
-            }, 1500);
+            // تكرار النجوم أثناء التشغيل
+            setTimeout(launchStars, 1000);
+            setTimeout(launchStars, 2000);
         }
 
-        function shareWin() {
-            const text = "عادل بولبينة رجل المباراة وهدف التأهل لربع النهائي! 🇩🇿✅ مبروك للجزائر على شبكة MisterAI NETWORK! 👇";
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        function closeVideo() {
+            const modal = document.getElementById('video-modal');
+            const video = document.getElementById('goal-video');
+            modal.style.display = 'none';
+            video.pause(); // إيقاف الفيديو عند الإغلاق
         }
     </script>
     <script src="script.js"></script>
-    
-    <div class="mt-10">
-        <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
-    </div>
 </body>
 </html>
