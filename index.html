@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterAI | الاحتفال بالتأهل</title>
+    <title>MisterAI | الاحتفال بالتأهل التاريخي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -11,11 +11,11 @@
     <style>
         body { font-family: 'Cairo', sans-serif; background: #020617; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; color: #e2e8f0; overflow-x: hidden; }
         
-        /* الشعار المستقيم اللامع */
+        /* شعار MisterAI NETWORK المستقيم واللامع */
         .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; padding: 0 20px; display: inline-block; }
         @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* الإطار الأزرق اللامع */
+        /* الإطار الأزرق اللامع المشع (Neon Pulse) */
         .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.3); position: relative; box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); animation: neon-pulse 3s infinite ease-in-out; }
         @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); border-color: rgba(0, 242, 255, 0.2); } 50% { box-shadow: 0 0 35px rgba(0, 242, 255, 0.5); border-color: rgba(0, 242, 255, 0.7); } }
 
@@ -27,7 +27,7 @@
 
     <header class="container mx-auto mb-16 border-b border-cyan-500/20 pb-10 text-center">
         <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
-        <p class="text-[10px] text-green-400 uppercase tracking-[0.5em] font-black">Algerian Victory | مبروك التأهل لربع النهائي 🇩🇿</p>
+        <p class="text-[10px] text-cyan-500 uppercase tracking-[0.6em] font-black">Algerian Security & Media Intelligence</p>
     </header>
 
     <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -35,7 +35,7 @@
         <aside class="lg:col-span-1 order-2 lg:order-1">
             <div class="cyber-card p-6 rounded-2xl border-orange-500/20">
                 <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> أخبار الجزاائر الآن
+                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> أخبار الجزائر الآن
                 </h3>
                 <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[400px] overflow-y-auto custom-scrollbar">
                     </div>
@@ -43,52 +43,63 @@
         </aside>
 
         <div class="lg:col-span-3 order-1 lg:order-2">
-            <div class="bg-black/20 p-8 md:p-12 rounded-[3rem] border border-cyan-500/20 backdrop-blur-md shadow-2xl text-center">
+            <div class="bg-black/20 p-8 md:p-16 rounded-[3rem] border border-cyan-500/20 backdrop-blur-md shadow-2xl text-center">
                 
-                <div class="mb-6"><i class="fas fa-crown text-6xl text-yellow-500 animate-bounce"></i></div>
-                <h2 class="text-3xl md:text-5xl font-black text-white mb-4 uppercase">البطل عادل بولبينة</h2>
-                <p class="text-cyan-400 font-bold mb-10 italic">شاهد فيديو الهدف التاريخي مباشرة داخل الموقع</p>
-
-                <div id="video-placeholder" class="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 bg-black aspect-video relative group">
-                    <div id="play-overlay" class="absolute inset-0 flex items-center justify-center bg-black/60 cursor-pointer z-10" onclick="startInternalVideo()">
-                        <i class="fas fa-play-circle text-8xl text-green-500 group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    
-                    <video id="goal-video" class="w-full h-full" playsinline>
-                        <source src="https://video.twimg.com/ext_tw_video/2008621716335890433/pu/vid/avc1/1280x720/p8kA2kw56avReGAd.mp4?tag=12" type="video/mp4">
-                    </video>
+                <div class="mb-6">
+                    <i class="fas fa-crown text-7xl text-yellow-500 animate-bounce mb-4"></i>
+                    <h2 class="text-4xl md:text-6xl font-black text-white mb-4 uppercase tracking-tighter">عادل بولبينة</h2>
+                    <p class="text-green-400 font-black text-lg mb-10 tracking-widest">بطل التأهل لربع النهائي 🇩🇿</p>
                 </div>
 
-                <div class="flex justify-center gap-4">
-                    <button onclick="shareWin()" class="bg-[#1DA1F2] text-white px-6 py-2 rounded-full font-bold text-xs">
-                        <i class="fab fa-twitter"></i> شارك الفرحة
+                <button onclick="watchVideoExternally()" class="bg-gradient-to-r from-green-500 to-cyan-600 text-white px-12 py-5 rounded-2xl font-black text-2xl shadow-2xl hover:scale-110 transition-all active:scale-95 border-b-4 border-green-800">
+                    <i class="fas fa-play-circle ml-3"></i> شاهد الهدف والاحتفال
+                </button>
+
+                <div class="mt-12">
+                    <button onclick="shareWin()" class="text-[#1DA1F2] font-black text-sm flex items-center justify-center gap-2 mx-auto">
+                        <i class="fab fa-twitter text-xl"></i> شارك فرحة الفوز
                     </button>
                 </div>
             </div>
         </div>
     </main>
 
+    <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10 text-center">
+        <p class="text-[12px] font-black text-gray-400 uppercase tracking-[0.3em]">
+            © 2026 <span class="text-cyan-400">MisterAI Security</span>. الحقوق محفوظة لمصطفى
+        </p>
+        <p class="text-[10px] text-gray-600 font-bold italic mt-2">
+            بواسطة مصطفى | مستشار الذكاء الاصطناعي
+        </p>
+    </footer>
+
     <script>
+        // دالة النجوم الاحتفالية
         function launchStars() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#22c55e', '#ffffff', '#fbbf24', '#00f2ff'] });
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#22c55e', '#ffffff', '#fbbf24', '#00f2ff']
+            });
         }
 
-        function startInternalVideo() {
-            const video = document.getElementById('goal-video');
-            const overlay = document.getElementById('play-overlay');
-            
-            launchStars(); // إطلاق النجوم عند البدء
-            overlay.style.display = 'none'; // إخفاء زر التشغيل
-            video.controls = true; // إظهار أزرار التحكم
-            video.play(); // تشغيل
+        // وظيفة المشاهدة الخارجية
+        function watchVideoExternally() {
+            launchStars(); // إطلاق النجوم
+            setTimeout(() => {
+                // فتح الرابط في صفحة جديدة لضمان العمل 100%
+                window.open("https://video.twimg.com/ext_tw_video/2008621716335890433/pu/vid/avc1/1280x720/p8kA2kw56avReGAd.mp4?tag=12", "_blank");
+            }, 800);
         }
 
         function shareWin() {
-            const text = "عادل بولبينة يسجل والجزائر تتأهل! 🇩🇿 شاهد الهدف الآن على MisterAI NETWORK";
+            const text = "عادل بولبينة بطل الليلة! 🇩🇿✅ شاهد الهدف التاريخي على شبكة MisterAI NETWORK! 👇";
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
     </script>
     <script src="script.js"></script>
+    
     <div class="mt-10">
         <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
     </div>
