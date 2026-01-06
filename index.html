@@ -15,103 +15,113 @@
             color: #e2e8f0;
             overflow-x: hidden;
         }
+
+        /* أنيميشن العنوان اللامع والمتحرك بالألوان */
+        .glow-text {
+            font-weight: 900;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: animated_text 5s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.5));
+        }
+
+        @keyframes animated_text {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .neon-border {
             border: 1px solid #00f2ff;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
         }
+
         .cyber-card {
             background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(0, 242, 255, 0.1);
             position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .cyber-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
+
+        .scanline {
+            width: 100%;
+            height: 2px;
             background: linear-gradient(90deg, transparent, #00f2ff, transparent);
-            animation: scan 3s linear infinite;
+            position: absolute;
+            top: 0; left: 0;
+            animation: scanning 4s linear infinite;
+            z-index: 5;
         }
-        @keyframes scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+
+        @keyframes scanning {
+            0% { top: 0; }
+            100% { top: 100%; }
         }
-        .glitch-text {
-            text-shadow: 2px 0 #ff00c1, -2px 0 #00f2ff;
-        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-10">
 
-    <header class="container mx-auto mb-12 flex justify-between items-center border-b border-cyan-500/30 pb-6">
+    <header class="container mx-auto mb-16 flex justify-between items-center border-b border-cyan-500/20 pb-8">
         <div>
-            <h1 class="text-3xl font-black glitch-text tracking-tighter italic">MisterAI <span class="text-cyan-400">NETWORK</span></h1>
-            <p class="text-[10px] text-cyan-500 uppercase tracking-[0.5em] font-bold mt-1">Artificial Intelligence Security System</p>
+            <h1 class="text-4xl md:text-5xl glow-text italic tracking-tighter">MisterAI NETWORK</h1>
+            <p class="text-[10px] text-cyan-500 uppercase tracking-[0.6em] font-black mt-2">Artificial Intelligence Security System</p>
         </div>
-        <div class="text-left hidden md:block">
-            <p class="text-[10px] text-gray-500 uppercase font-bold">System Status</p>
-            <p class="text-xs text-green-500 font-black animate-pulse">● ACTIVE_SERVER_DZ</p>
+        <div class="text-left hidden lg:block border-l border-gray-800 pl-6">
+            <p class="text-[9px] text-gray-500 uppercase font-black mb-1">Node Status</p>
+            <p class="text-xs text-green-400 font-bold flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span> 
+                ACTIVE: 0x82_ALGIERS_DZ
+            </p>
         </div>
     </header>
 
-    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
-        
+    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
         <aside class="lg:col-span-1 space-y-6">
-            <div class="cyber-card p-6 rounded-tl-[2rem] rounded-br-[2rem]">
-                <h3 class="text-cyan-400 font-black text-sm mb-4 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-cyan-400 rounded-full"></span> DZ_SECURITY_PROTOCOL
+            <div class="cyber-card p-8 rounded-tr-[3rem] rounded-bl-[3rem]">
+                <div class="scanline"></div>
+                <h3 class="text-cyan-400 font-black text-xs mb-6 flex items-center gap-2 tracking-widest uppercase">
+                    <span class="w-1.5 h-4 bg-cyan-400"></span> DZ_SECURITY_PROTOCOL
                 </h3>
-                <div class="space-y-4 text-[11px] leading-relaxed text-gray-400">
-                    <div class="border-r-2 border-red-500 pr-3">
-                        <p class="text-red-400 font-bold mb-1 uppercase">Baridimob Alert</p>
-                        <p>تنبيه: لا تشارك رمز OTP المكون من 6 أرقام مع أي شخص يدعي أنه من بريد الجزائر.</p>
-                    </div>
-                    <div class="border-r-2 border-cyan-500 pr-3">
-                        <p class="text-cyan-400 font-bold mb-1 uppercase">Official Links</p>
-                        <p>تأكد دائماً من أن الرابط ينتهي بـ (.dz) قبل إدخال بياناتك الشخصية.</p>
+                <div class="space-y-6 text-[12px] leading-relaxed">
+                    <div class="border-r-2 border-red-500 pr-4">
+                        <p class="text-red-500 font-black mb-2 uppercase text-[10px]">Baridimob Alert</p>
+                        <p class="text-gray-400">تحذير: رموز الـ OTP سرية تماماً. أي اتصال يطلبها منك هو محاولة اختراق.</p>
                     </div>
                 </div>
             </div>
-
-            <div class="cyber-card p-6 rounded-2xl bg-cyan-500/5 border-cyan-500/20 text-center">
-                <p class="text-[9px] text-cyan-500/50 mb-2 uppercase font-black">Emergency Contact</p>
-                <p class="text-4xl font-black text-white tracking-widest">1055</p>
-                <div class="mt-4 py-1 bg-cyan-500 text-black text-[10px] font-black uppercase tracking-tighter">Gendarmerie Nationale</div>
+            <div class="cyber-card p-8 rounded-2xl bg-cyan-500/5 text-center">
+                <p class="text-[10px] text-cyan-500/60 mb-3 uppercase font-black tracking-widest">Digital Crime Report</p>
+                <p class="text-5xl font-black text-white tracking-widest">1055</p>
             </div>
         </aside>
 
-        <div class="lg:col-span-3 space-y-6">
-            <div class="cyber-card rounded-3xl overflow-hidden aspect-video neon-border relative group">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+        <div class="lg:col-span-3 space-y-8">
+            <div class="cyber-card rounded-[2.5rem] overflow-hidden aspect-video neon-border relative group">
                 <div id="news-container" class="absolute inset-0 z-20 p-8 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto custom-scrollbar">
-                    <div class="flex items-center justify-center h-full col-span-full">
-                        <p class="text-cyan-500 font-bold animate-pulse tracking-[0.3em]">INITIALIZING_NEWS_FEED...</p>
-                    </div>
-                </div>
-                <div class="absolute top-4 right-6 z-30 text-[10px] text-cyan-400 font-black opacity-50">NODE: 0x82_ALGIERS</div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="cyber-card p-4 rounded-xl text-center">
-                    <p class="text-[9px] text-gray-500 uppercase">Latency</p>
-                    <p class="text-xs font-black text-cyan-400">24ms</p>
-                </div>
-                <div class="cyber-card p-4 rounded-xl text-center">
-                    <p class="text-[9px] text-gray-500 uppercase">Encryption</p>
-                    <p class="text-xs font-black text-cyan-400">AES-256</p>
-                </div>
-                <div class="cyber-card p-4 rounded-xl text-center">
-                    <p class="text-[9px] text-gray-500 uppercase">Updates</p>
-                    <p class="text-xs font-black text-cyan-400">Every 6h</p>
-                </div>
-                <div class="cyber-card p-4 rounded-xl text-center">
-                    <p class="text-[9px] text-gray-500 uppercase">Threat Level</p>
-                    <p class="text-xs font-black text-red-500">STABLE</p>
+                    <p class="text-cyan-500 font-black text-center col-span-full py-20">INITIALIZING_SECURE_FEED...</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-right">
+                <p class="text-[11px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">© 2026 <span class="text-cyan-400">MisterAI Security</span></p>
+                <p class="text-[10px] text-gray-600 font-bold">تم التطوير بواسطة <span class="text-white">مصطفى</span> | منصة الأمن الرقمي</p>
+            </div>
+            <div class="text-[8px] text-gray-800 font-black uppercase tracking-widest">Build: 2.0.1_STABLE</div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
