@@ -8,169 +8,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            background: #020617; 
-            background-image: radial-gradient(#1e293b 1px, transparent 1px);
-            background-size: 30px 30px;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Cairo', sans-serif; background: #020617; background-image: radial-gradient(#1e293b 1px, transparent 1px); background-size: 30px 30px; color: #e2e8f0; overflow-x: hidden; }
+        
+        /* الشعار المستقيم اللامع */
+        .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; padding: 0 20px; display: inline-block; }
+        @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* شعار MisterAI NETWORK في المنتصف */
-        .glow-text {
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff);
-            background-size: 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: animated_text 5s linear infinite;
-            padding: 0 20px;
-            display: inline-block;
-        }
+        /* الإطار الأزرق المشع */
+        .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.3); position: relative; box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); animation: neon-pulse 3s infinite ease-in-out; }
+        @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); border-color: rgba(0, 242, 255, 0.2); } 50% { box-shadow: 0 0 35px rgba(0, 242, 255, 0.5); border-color: rgba(0, 242, 255, 0.7); } }
 
-        @keyframes animated_text {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* الإطارات مع الشعاع الأزرق اللامع */
-        .cyber-card {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            position: relative;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
-            animation: neon-pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes neon-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); border-color: rgba(0, 242, 255, 0.2); }
-            50% { box-shadow: 0 0 35px rgba(0, 242, 255, 0.5); border-color: rgba(0, 242, 255, 0.7); }
-        }
-
-        /* الأزرار الزجاجية اللامعة */
-        .cyber-btn-glass {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(0, 242, 255, 0.05);
-            border: 1px solid rgba(0, 242, 255, 0.4);
-            backdrop-filter: blur(10px);
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 18px;
-            font-weight: 900;
-            font-size: 14px;
-            transition: all 0.4s ease;
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
-            cursor: pointer;
-        }
-
-        .cyber-btn-glass:hover {
-            background: rgba(0, 242, 255, 0.3);
-            border-color: #00f2ff;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
-            transform: translateY(-5px);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        /* الأزرار الزجاجية الزرقاء */
+        .cyber-btn-glass { display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(0, 242, 255, 0.05); border: 1px solid rgba(0, 242, 255, 0.4); backdrop-filter: blur(10px); color: #fff; padding: 12px 15px; border-radius: 15px; font-weight: 900; font-size: 13px; transition: 0.3s; }
+        .cyber-btn-glass:hover { background: rgba(0, 242, 255, 0.3); border-color: #00f2ff; box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); transform: translateY(-3px); }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
     </style>
 </head>
 <body class="p-4 md:p-10 text-right">
 
-    <header class="container mx-auto mb-16 border-b border-cyan-500/20 pb-10 text-center">
-        <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
-        <p class="text-[10px] text-cyan-500 uppercase tracking-[0.6em] font-black">Algerian Security & Media Intelligence</p>
+    <header class="container mx-auto mb-12 border-b border-cyan-500/20 pb-8 text-center">
+        <h1 class="text-5xl md:text-6xl glow-text mb-4">MisterAI NETWORK</h1>
+        <p class="text-[9px] text-cyan-500 uppercase tracking-[0.6em] font-black">Algerian Security & Media Intelligence</p>
     </header>
 
-    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
         
         <aside class="lg:col-span-1 order-2 lg:order-1">
-            <div class="cyber-card p-6 rounded-2xl border-orange-500/20" style="animation: none;">
-                <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2">
+            <div class="cyber-card p-5 rounded-2xl border-orange-500/20" style="animation: none;">
+                <h3 class="text-orange-400 font-black text-xs mb-4 flex items-center gap-2">
                     <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span> الترند في الجزائر
                 </h3>
-                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[600px] overflow-y-auto custom-scrollbar">
+                <div id="algeria-trending" class="space-y-3 text-[10px] max-h-[500px] overflow-y-auto custom-scrollbar">
                     </div>
             </div>
         </aside>
 
         <div class="lg:col-span-3 order-1 lg:order-2">
-            <div class="bg-black/20 p-6 md:p-10 rounded-[3rem] border border-cyan-500/20 backdrop-blur-md shadow-2xl">
+            <div class="bg-black/20 p-6 md:p-8 rounded-[2.5rem] border border-cyan-500/20 backdrop-blur-md shadow-2xl">
                 
-                <div class="text-center mb-10">
-                    <h2 class="text-2xl font-black text-white mb-2">🏆 بث مباريات اليوم</h2>
-                    <p class="text-cyan-400 text-xs font-bold animate-pulse">الجزائر ضد الكونغو - 17:00 بتوقيت الجزائر</p>
-                    <button onclick="shareMatch()" class="mt-4 inline-flex items-center gap-2 bg-[#1DA1F2] text-white px-6 py-2 rounded-full text-[11px] font-bold hover:scale-105 transition-all">
-                        <i class="fab fa-twitter"></i> شارك الرابط لتويتر
+                <div class="text-center mb-8">
+                    <h2 class="text-xl font-black text-white mb-2 uppercase">🇩🇿 مباراة الجزائر والكونغو اليوم</h2>
+                    <p class="text-orange-400 text-xs font-bold animate-pulse">تبدأ الساعة 17:00 (بث مباشر خارجي آمن)</p>
+                    <button onclick="shareMatch()" class="mt-4 inline-flex items-center gap-2 bg-[#1DA1F2] text-white px-5 py-2 rounded-full text-[10px] font-bold">
+                        <i class="fab fa-twitter"></i> شارك المباراة والرابط
                     </button>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                        <span class="block text-yellow-500 font-bold text-[10px] mb-3 uppercase">MAX 1 AR 4K</span>
-                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432904.m3u8" target="_blank" class="cyber-btn-glass ad-trigger">
-                            <i class="fas fa-play-circle"></i> تشغيل مباشر
-                        </a>
+                <h3 class="text-cyan-400 font-black text-xs mb-4 border-r-4 border-cyan-500 pr-2">القناة الوطنية الجزائرية</h3>
+                <div class="grid grid-cols-1 mb-8">
+                    <div class="p-4 bg-cyan-500/5 rounded-xl border border-cyan-500/10 flex justify-between items-center">
+                        <span class="text-white font-bold text-sm">DZ PROG NAT (الأرضية)</span>
+                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432888.m3u8" target="_blank" class="cyber-btn-glass ad-trigger">تشغيل مباشر</a>
                     </div>
+                </div>
 
-                    <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
-                        <span class="block text-cyan-400 font-bold text-[10px] mb-3 uppercase">MAX 1 AR FHD</span>
-                        <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432903.m3u8" target="_blank" class="cyber-btn-glass ad-trigger">
-                            <i class="fas fa-play-circle"></i> تشغيل مباشر
-                        </a>
+                <h3 class="text-yellow-500 font-black text-xs mb-4 border-r-4 border-yellow-500 pr-2">beIN SPORTS MAX</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
+                        <span class="block text-gray-400 font-bold text-[9px] mb-3 uppercase">MAX 1 AR 4K / FHD</span>
+                        <div class="flex gap-2 justify-center">
+                            <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432904.m3u8" target="_blank" class="cyber-btn-glass ad-trigger flex-1">MAX 1 4K</a>
+                            <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432903.m3u8" target="_blank" class="cyber-btn-glass ad-trigger flex-1">MAX 1 FHD</a>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white/5 rounded-xl border border-white/5 text-center">
+                        <span class="block text-gray-400 font-bold text-[9px] mb-3 uppercase">MAX 2 AR 4K / FHD</span>
+                        <div class="flex gap-2 justify-center">
+                            <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432900.m3u8" target="_blank" class="cyber-btn-glass ad-trigger flex-1">MAX 2 4K</a>
+                            <a href="http://fr.ottv.pro/live/4476647188407159/4476647188407159/432899.m3u8" target="_blank" class="cyber-btn-glass ad-trigger flex-1">MAX 2 FHD</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="container mx-auto mt-24 pb-12 border-t border-cyan-500/10 pt-10 text-center">
-        <p class="text-[12px] font-black text-gray-400 uppercase tracking-[0.3em]">© 2026 <span class="text-cyan-400">MisterAI Security</span>. الحقوق محفوظة لمصطفى</p>
+    <footer class="container mx-auto mt-16 text-center border-t border-white/5 pt-8">
+        <p class="text-[11px] text-gray-500 font-black uppercase tracking-widest">© 2026 MisterAI Security | تم التطوير بواسطة مصطفى</p>
     </footer>
 
-    <div id="ads-container">
+    <div id="ads-container" style="position:fixed; bottom:0; left:0; width:100%; z-index:999;">
         <script src="https://quge5.com/88/tag.min.js" data-zone="199398" async data-cfasync="false"></script>
     </div>
 
     <script>
-        // إعدادات توقيت المباراة (بالدقائق)
-        const HALF_TIME = 45 * 60 * 1000; // 45 دقيقة
-        const BREAK_TIME = 15 * 60 * 1000; // 15 دقيقة استراحة
+        const AD_PAUSE = 45 * 60 * 1000; 
+        const AD_BREAK = 15 * 60 * 1000;
 
         function controlAds() {
             const adsBox = document.getElementById('ads-container');
-            adsBox.style.display = 'none'; // إخفاء الإعلان فوراً (بداية الشوط الأول)
-            
-            // ظهور الإعلان في الاستراحة بعد 45 دقيقة
+            adsBox.style.visibility = 'hidden'; 
             setTimeout(() => {
-                adsBox.style.display = 'block';
-                
-                // إخفاء الإعلان مجدداً بعد انتهاء الاستراحة (بداية الشوط الثاني)
+                adsBox.style.visibility = 'visible';
                 setTimeout(() => {
-                    adsBox.style.display = 'none';
-                    
-                    // العودة النهائية للإعلانات بعد نهاية المباراة
-                    setTimeout(() => {
-                        adsBox.style.display = 'block';
-                    }, HALF_TIME);
-                }, BREAK_TIME);
-            }, HALF_TIME);
+                    adsBox.style.visibility = 'hidden';
+                    setTimeout(() => { adsBox.style.visibility = 'visible'; }, AD_PAUSE);
+                }, AD_BREAK);
+            }, AD_PAUSE);
         }
 
-        // تفعيل النظام عند الضغط على أي زر تشغيل
         document.querySelectorAll('.ad-trigger').forEach(btn => {
             btn.addEventListener('click', controlAds);
         });
 
         function shareMatch() {
-            const text = "🚨 تابعوا مباراة الجزائر والكونغو الديمقراطية الآن! بث مباشر شغال 100% على شبكة MisterAI NETWORK 🇩🇿⚡";
+            const text = "🚨 رابط حقيقي للبث المباشر لمباراة الجزائر والكونغو 🇩🇿 اليوم الساعة 17:00 على شبكة MisterAI NETWORK! 👇";
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
     </script>
