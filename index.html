@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MisterAI | محرك البحث والهدوء الرقمي 🇩🇿</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background: #020617; color: #e2e8f0; overflow-x: hidden; }
+        .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; }
+        @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.2); transition: all 0.5s ease; }
+        .cyber-card:hover { border-color: rgba(0, 242, 255, 0.6); box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
+    </style>
+</head>
+<body class="p-4 md:p-10" onload="startEndlessCelebration()">
+
+    <header class="container mx-auto mb-10 text-center">
+        <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
+        <p class="text-[10px] text-green-400 tracking-[0.6em] font-black uppercase animate-pulse">Knowledge & Security Hub</p>
+    </header>
+
+    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <div class="lg:col-span-4 mb-8">
+            <div class="cyber-card p-8 rounded-[2.5rem]">
+                <h3 class="text-cyan-400 font-black text-sm mb-6 flex items-center gap-3">
+                    <i class="fas fa-brain animate-pulse"></i> اسأل مساعدك الذكي للتحقق من الأخبار
+                </h3>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input id="ai-search-input" type="text" placeholder="مثلاً: آخر أخبار الجزائر أو تعلم البرمجة..." 
+                           class="flex-1 bg-black/50 border border-cyan-500/20 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-cyan-400">
+                    <button onclick="askMisterAI()" class="bg-cyan-500 text-black font-black px-10 py-4 rounded-2xl hover:bg-white transition-all shadow-lg shadow-cyan-500/20">ابحث وتحقق</button>
+                </div>
+                <div id="ai-response-area" class="mt-6"></div>
+            </div>
+        </div>
+
+        <aside class="lg:col-span-1 space-y-6">
+            <div class="cyber-card p-6 rounded-2xl">
+                <h3 class="text-orange-400 font-black text-xs mb-4">أخبار الجزائر</h3>
+                <div id="algeria-trending" class="space-y-3 max-h-[300px] overflow-y-auto pr-2"></div>
+            </div>
+        </aside>
+
+        <div class="lg:col-span-3">
+            <h2 class="text-2xl font-black text-white mb-6 flex items-center gap-4">
+                <span class="w-10 h-1 bg-green-500 rounded-full"></span> مختبر البرمجة وفهم الآلة
+            </h2>
+            <div id="lab-items" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                </div>
+        </div>
+    </main>
+
+    <footer class="text-center mt-20 opacity-50 text-[10px] tracking-widest">
+        © 2026 MISTERAI SECURITY - DEVELOPED BY MUSTAFA
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function launchCelebration() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#00f2ff', '#22c55e', '#ffffff'] });
+        }
+        function startEndlessCelebration() {
+            launchCelebration();
+            setInterval(launchCelebration, 8000);
+        }
+    </script>
+</body>
+</html>
