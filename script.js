@@ -3,12 +3,12 @@
  * المطور: مصطفى (MisterAI)
  */
 
-// الكلمات المحجوزة للحقن عبر GitHub Secrets
+// استشعار المفاتيح: يحاول القراءة من Vercel أولاً، ثم من الكلمات المحجوزة في GitHub
 const GEMINI_API_KEY = "YOUR_GEMINI_KEY";
 const NEWS_API_KEY = "YOUR_NEWS_KEY";
 
 /**
- * 1. استحضار المقال الساخر (تخريفة المستر)
+ * 1. استحضار المقال الساخر
  */
 async function generateMisterAISatire() {
     const responseArea = document.getElementById('ai-response-area');
@@ -17,12 +17,13 @@ async function generateMisterAISatire() {
     responseArea.innerHTML = `
         <div class="p-16 border border-cyan-500/10 rounded-[3rem] bg-black/40 text-center animate-pulse">
             <div class="inline-block h-8 w-8 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p class="text-gray-500 font-bold text-[10px] tracking-[0.4em] uppercase">جاري استحضار الفكرة...</p>
+            <p class="text-gray-500 font-bold text-[10px] tracking-[0.4em] uppercase">جاري استحضار الفكرة من السحابة الرقمية...</p>
         </div>`;
 
     let eventsContext = "هدوء المساء، فلسفة الوقت، والبحث عن الجوهر في عالم رقمي متسارع";
 
     try {
+        // محاولة جلب الأخبار
         try {
             const newsRes = await fetch(`https://newsapi.org/v2/top-headlines?country=dz&pageSize=5&apiKey=${NEWS_API_KEY}`);
             if (newsRes.ok) {
@@ -33,6 +34,7 @@ async function generateMisterAISatire() {
             }
         } catch (e) { console.log("Status: Background context utilized."); }
 
+        // استدعاء Gemini AI
         const aiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         const aiResponse = await fetch(aiUrl, {
             method: 'POST',
@@ -40,27 +42,29 @@ async function generateMisterAISatire() {
             body: JSON.stringify({
                 contents: [{
                     parts: [{
-                        text: `أنت MisterAI، فيلسوف جزائري ساخر. اكتب مقالاً ساخراً وعميقاً بالدارجة الجزائرية عن: ${eventsContext}. ابدأ مباشرة بأسلوبك الخاص.`
+                        text: `أنت MisterAI، فيلسوف جزائري ساخر. اكتب مقالاً ساخراً وعميقاً بالدارجة الجزائرية عن: ${eventsContext}. لا تستخدم مقدمات ولا عناوين.`
                     }]
                 }]
             })
         });
 
         const aiData = await aiResponse.json();
+        if (!aiData.candidates) throw new Error("API Key Issue");
+        
         const articleContent = aiData.candidates[0].content.parts[0].text;
 
         responseArea.innerHTML = `
             <div class="cyber-card p-10 md:p-16 rounded-[4rem] bg-gradient-to-b from-[#0f172a] to-black border-t border-white/5 shadow-2xl animate-in fade-in duration-1000">
                 <div class="flex justify-between items-center mb-10 opacity-30">
-                    <i class="fas fa-feather-alt text-2xl"></i>
+                    <i class="fas fa-feather-alt text-2xl text-cyan-500"></i>
                     <span class="text-[8px] font-black uppercase tracking-[0.5em]">MisterAI_Thought</span>
                 </div>
                 <div class="text-gray-200 text-xl md:text-2xl leading-[2.2] text-right font-medium italic">
                     ${articleContent.replace(/\n/g, '<br>')}
                 </div>
-                <div class="mt-12 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] text-gray-700">
-                    <button onclick="generateMisterAISatire()" class="hover:text-cyan-500 transition-all font-black uppercase">تأمل آخر ↻</button>
-                    <p class="uppercase tracking-widest">Verified_Intelligence</p>
+                <div class="mt-12 pt-8 border-t border-white/5 flex justify-between items-center">
+                    <button onclick="generateMisterAISatire()" class="text-[10px] text-cyan-600 hover:text-cyan-400 transition-all font-black uppercase">تأمل آخر ↻</button>
+                    <p class="text-[8px] text-gray-700 uppercase tracking-widest tracking-widest">MisterAI_Verified</p>
                 </div>
             </div>`;
 
@@ -68,12 +72,20 @@ async function generateMisterAISatire() {
         console.error("Internal Log:", err);
         responseArea.innerHTML = `
             <div class="p-16 border border-white/5 rounded-[3rem] text-center bg-black/10">
-                <p class="text-gray-600 text-lg italic italic">"يبدو أن المستر في لحظة صمت فلسفية عميقة.. السحابة الرقمية تمر بهدوء."</p>
-                <button onclick="generateMisterAISatire()" class="mt-8 text-[9px] text-gray-700 hover:text-cyan-600 transition-all uppercase tracking-[0.3em]">إعادة المحاولة</button>
+                <i class="fas fa-wind text-gray-800 mb-6 text-xl"></i>
+                <p class="text-gray-600 text-lg italic leading-relaxed">
+                    "يبدو أن المستر في لحظة صمت فلسفية عميقة.. السحابة الرقمية تمر بهدوء."
+                </p>
+                <button onclick="generateMisterAISatire()" class="mt-8 text-[9px] text-gray-700 hover:text-cyan-600 transition-all uppercase tracking-[0.3em]">
+                    إعادة المحاولة
+                </button>
             </div>`;
     }
 }
 
+/**
+ * 2. جلب مختبر المعرفة
+ */
 async function fetchLabKnowledge() {
     const labContainer = document.getElementById('lab-items');
     if (!labContainer) return;
@@ -82,12 +94,15 @@ async function fetchLabKnowledge() {
         const data = await res.json();
         labContainer.innerHTML = data.map(art => `
             <div class="bg-black/30 border border-white/5 p-6 rounded-2xl hover:border-cyan-900 transition-all">
-                <h5 class="text-gray-300 font-bold text-sm mb-2">${art.title}</h5>
+                <h5 class="text-gray-300 font-bold text-sm mb-2 leading-tight">${art.title}</h5>
                 <a href="${art.url}" target="_blank" class="text-[9px] text-gray-600 uppercase hover:text-cyan-500">Read_Doc →</a>
             </div>`).join('');
     } catch (e) { console.log("Lab: Offline"); }
 }
 
+/**
+ * 3. تحديث نبض الجزائر
+ */
 async function updateAlgeriaPulse() {
     const container = document.getElementById('algeria-trending');
     if (!container) return;
@@ -103,6 +118,7 @@ async function updateAlgeriaPulse() {
     } catch (e) { console.log("Pulse: Low"); }
 }
 
+// البدء عند جاهزية الصفحة
 document.addEventListener('DOMContentLoaded', () => {
     fetchLabKnowledge();
     updateAlgeriaPulse();
