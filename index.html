@@ -32,6 +32,32 @@
         }
         .custom-scrollbar::-webkit-scrollbar { width: 3px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #0891b2; border-radius: 10px; }
+
+        /* إضافات خاصة بقائمة القنوات واللاعب */
+        .channel-list { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .5rem; }
+        .channel-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: .5rem .6rem;
+            border-radius: .75rem;
+            font-weight: 700;
+            font-size: .9rem;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:.6rem;
+            cursor:pointer;
+            transition: transform .12s, background .12s, border-color .12s;
+        }
+        .channel-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.04); border-color: rgba(0,242,255,0.08); }
+        .channel-btn.active { box-shadow: 0 6px 20px rgba(0,242,255,0.06); border-color: rgba(0,242,255,0.18); background: linear-gradient(90deg, rgba(0,242,255,0.02), rgba(0,255,136,0.02)); }
+        .channel-badge { width: 30px; height: 22px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px; font-weight:900; }
+        .player-wrap { margin-bottom: .8rem; }
+        video#tvPlayer { width:100%; border-radius: .9rem; background: #000; height: 220px; object-fit: cover; }
+        .muted-tip { font-size: 11px; color: #9ca3af; margin-top:.4rem; }
+        @media (min-width: 1024px) {
+            video#tvPlayer { height: 260px; }
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -53,6 +79,27 @@
                 <div id="algeria-trending" class="space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar">
                     <p class="text-[10px] text-gray-700 animate-pulse">جاري جلب النبض...</p>
                 </div>
+            </div>
+
+            <!-- بطاقة جديدة لإضافة مشغل القنوات وقائمة القنوات -->
+            <div class="cyber-card p-6 mt-6 rounded-3xl border-cyan-500/10">
+                <h4 class="text-cyan-400 font-black text-xs mb-4 uppercase flex items-center justify-between">
+                    <span class="flex items-center gap-2"><i class="fas fa-tv"></i> قنوات BeIN Sport</span>
+                    <span class="text-[10px] text-gray-400">تشغيل مباشر</span>
+                </h4>
+
+                <div class="player-wrap">
+                    <!-- مشغل الفيديو (يستخدم hls.js تلقائياً للمتصفحات غير الداعمة) -->
+                    <video id="tvPlayer" controls playsinline crossorigin="anonymous" poster="" ></video>
+                    <div class="muted-tip">إن لم يعمل الصوت، فعّل الصوت من شريط الفيديو في الزاوية</div>
+                </div>
+
+                <!-- قائمة القنوات -->
+                <div id="channelList" class="channel-list">
+                    <!-- الأزرار تملأ ديناميكياً بواسطة الجافاسكربت -->
+                </div>
+
+                <p class="text-[11px] text-gray-500 mt-4">اضغط على قناة لتشغيلها. إذا لم يعمل البث، قد يكون السبب CORS أو حاجة السيرفر لبروكسي خارجي.</p>
             </div>
         </aside>
 
@@ -94,5 +141,107 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- hls.js لتحميل وتشغيل m3u8 في المتصفحات غير الداعمة nativity -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.4/dist/hls.min.js"></script>
+
+    <!-- سكربت لإضافة القنوات وتشغيلها دون حذف أي شيء من الكود الأصلي -->
+    <script>
+        (function(){
+            // لائحة القنوات كما طلبت (روابط ومسمى/رقم)
+            const channels = [
+                { title: '🟪 1', url: 'http://135.125.109.73:9000/beinsport1_.m3u8' },
+                { title: '🟪 2', url: 'http://135.125.109.73:9000/beinsport2_.m3u8' },
+                { title: '🟪 3', url: 'http://135.125.109.73:9000/beinsport3_.m3u8' },
+                { title: '🟪 4', url: 'http://135.125.109.73:9000/beinsport4_.m3u8' },
+                { title: '🟪 5', url: 'http://135.125.109.73:9000/beinsport5_.m3u8' },
+                { title: '🟪 6', url: 'http://135.125.109.73:9000/beinsport6_.m3u8' },
+                { title: '🟪 7', url: 'http://135.125.109.73:9000/beinsport7_.m3u8' },
+                { title: '🟪 8', url: 'http://135.125.109.73:9000/beinsport8_.m3u8' },
+                { title: '🟪 9', url: 'http://135.125.109.73:9000/beinsport9_.m3u8' }
+            ];
+
+            const container = document.getElementById('channelList');
+            const video = document.getElementById('tvPlayer');
+
+            // وظيفة لمراقبة وتشغيل رابط HLS سواء كان مدعوماً nativity أو عبر hls.js
+            let hlsInstance = null;
+            function playUrl(url) {
+                if (!url) return;
+                // إذا كان المتصفح يدعم HLS natively (Safari)، استخدمه مباشرة
+                if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    // أزل أي مصدر سابق
+                    video.src = url;
+                    video.load();
+                    video.play().catch(()=>{/* تجاهل خطأ التشغيل التلقائي */});
+                    return;
+                }
+
+                // في المتصفحات الأخرى استخدم hls.js
+                if (hlsInstance) {
+                    try { hlsInstance.destroy(); } catch(e) {}
+                    hlsInstance = null;
+                }
+                if (Hls && Hls.isSupported()) {
+                    hlsInstance = new Hls({ maxBufferLength: 30 });
+                    hlsInstance.loadSource(url);
+                    hlsInstance.attachMedia(video);
+                    hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+                        video.play().catch(()=>{/* قد يمنع المتصفح التشغيل التلقائي */});
+                    });
+                    hlsInstance.on(Hls.Events.ERROR, function(event, data) {
+                        console.error('HLS error', data);
+                    });
+                } else {
+                    // فشل تشغيل HLS
+                    console.warn('HLS not supported in this browser and video element cannot play m3u8 directly.');
+                }
+            }
+
+            // إنشاء أزرار القنوات ديناميكياً
+            channels.forEach((ch, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'channel-btn';
+                btn.type = 'button';
+                btn.setAttribute('data-url', ch.url);
+
+                const left = document.createElement('span');
+                left.className = 'flex items-center gap-2';
+                left.innerHTML = `<span class="channel-badge" style="background:#6d28d9;color:#fff;">${idx+1}</span><span style="font-weight:800">${ch.title}</span>`;
+
+                const right = document.createElement('span');
+                right.style.fontSize = '11px';
+                right.style.color = '#94a3b8';
+                right.textContent = 'تشغيل ▶';
+
+                btn.appendChild(left);
+                btn.appendChild(right);
+
+                btn.addEventListener('click', function(){
+                    // إزالة حالة active من باقي الأزرار
+                    container.querySelectorAll('.channel-btn').forEach(b=>b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const url = this.getAttribute('data-url');
+                    // قم بتشغيل القناة
+                    playUrl(url);
+                });
+
+                container.appendChild(btn);
+            });
+
+            // اختياري: تشغيل القناة الأولى تلقائياً (أزل التعليق إن رغبت)
+            // const firstBtn = container.querySelector('.channel-btn');
+            // if (firstBtn) firstBtn.click();
+
+            // تنظيف عند الانتقال أو إعادة التحميل
+            window.addEventListener('beforeunload', () => {
+                if (hlsInstance) {
+                    try { hlsInstance.destroy(); } catch(e) {}
+                }
+            });
+
+        })();
+    </script>
 </body>
 </html>
