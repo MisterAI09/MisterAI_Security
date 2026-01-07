@@ -3,78 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterAI | ركن الحكمة الساخرة 🇩🇿</title>
+    <title>MisterAI NETWORK | ركن الحكمة الساخرة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        body { font-family: 'Cairo', sans-serif; background: #020617; color: #e2e8f0; overflow-x: hidden; }
-        .glow-text { font-weight: 900; text-transform: uppercase; background: linear-gradient(90deg, #00f2ff, #00ff88, #ff00c1, #00f2ff); background-size: 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: animated_text 5s linear infinite; }
-        @keyframes animated_text { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 255, 0.2); transition: all 0.5s ease; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #00f2ff; border-radius: 10px; }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background: #020617; 
+            color: #e2e8f0; 
+            overflow-x: hidden; 
+        }
+        .glow-text { 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            background: linear-gradient(90deg, #00f2ff, #00ff88, #00f2ff); 
+            background-size: 200%; 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: flow 3s linear infinite; 
+        }
+        @keyframes flow { 0% { background-position: 0%; } 100% { background-position: 200%; } }
+        .cyber-card { 
+            background: rgba(15, 23, 42, 0.8); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(0, 242, 255, 0.1); 
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #0891b2; border-radius: 10px; }
     </style>
 </head>
-<body class="p-4 md:p-10" onload="startEndlessCelebration()">
+<body class="p-4 md:p-8">
 
-    <header class="container mx-auto mb-12 text-center border-b border-white/5 pb-10">
-        <h1 class="text-5xl md:text-7xl glow-text mb-4">MisterAI NETWORK</h1>
-        <p class="text-[10px] text-cyan-400 tracking-[0.6em] font-black uppercase animate-pulse">The Satirical Philosopher | ركن الحكمة الساخرة</p>
+    <header class="container mx-auto mb-16 text-center">
+        <h1 class="text-6xl md:text-8xl glow-text mb-4">MISTERAI NETWORK</h1>
+        <p class="text-[10px] text-cyan-500 tracking-[0.7em] font-black uppercase opacity-60">
+            THE SATIRICAL PHILOSOPHER | ركن الحكمة الساخرة
+        </p>
     </header>
 
-    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <main class="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-10">
         
-        <aside class="lg:col-span-1 order-2 lg:order-1 space-y-6">
+        <aside class="lg:col-span-1 order-2 lg:order-1">
             <div class="cyber-card p-6 rounded-3xl border-orange-500/20">
-                <h3 class="text-orange-400 font-black text-xs mb-6 flex items-center gap-2 uppercase tracking-tighter">
-                    <span class="w-2 h-2 bg-orange-500 rounded-full animate-ping"></span> نبض الجزائر الآن
+                <h3 class="text-orange-500 font-black text-xs mb-6 flex items-center gap-2 uppercase">
+                    <span class="w-2 h-2 bg-orange-600 rounded-full animate-ping"></span> نبض الجزائر الآن
                 </h3>
-                <div id="algeria-trending" class="space-y-4 text-[11px] max-h-[500px] overflow-y-auto custom-scrollbar">
-                    </div>
+                <div id="algeria-trending" class="space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar">
+                    <p class="text-[10px] text-gray-700 animate-pulse">جاري جلب النبض...</p>
+                </div>
             </div>
         </aside>
 
-        <div class="lg:col-span-3 order-1 lg:order-2">
-            <div id="satire-hub" class="space-y-8">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                    <h2 class="text-2xl font-black text-white flex items-center gap-3">
-                        <i class="fas fa-feather-alt text-cyan-500"></i> تخريفات المستر
-                    </h2>
-                    <button onclick="generateMisterAISatire()" class="bg-gradient-to-r from-cyan-600 to-blue-700 text-white px-8 py-3 rounded-2xl font-black text-sm shadow-xl hover:scale-105 transition-all active:scale-95 border-b-4 border-blue-900">
-                        <i class="fas fa-sync-alt ml-2"></i> استحضار مقال جديد
-                    </button>
-                </div>
+        <div class="lg:col-span-3 order-1 lg:order-2 space-y-12">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                    <i class="fas fa-feather-alt text-cyan-400"></i> تخريفات المستر
+                </h2>
+                <button onclick="generateMisterAISatire()" class="group relative overflow-hidden bg-cyan-600 text-white px-10 py-4 rounded-2xl font-black text-sm transition-all hover:bg-cyan-500 active:scale-95 shadow-lg shadow-cyan-500/20">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i class="fas fa-sync-alt group-hover:rotate-180 transition-transform duration-500"></i>
+                        استحضار مقال جديد
+                    </span>
+                </button>
+            </div>
 
-                <div id="ai-response-area">
-                    <div class="p-20 border border-dashed border-white/10 rounded-[3rem] text-center">
-                        <p class="text-gray-600 text-sm italic">اضغط على الزر أعلاه ليحلل لك المستر أحداث اليوم بسخريته المعهودة...</p>
-                    </div>
+            <div id="ai-response-area" class="min-h-[300px]">
+                <div class="p-20 border border-dashed border-white/5 rounded-[4rem] text-center opacity-40">
+                    <p class="text-gray-500 text-sm italic italic">
+                        "اضغط على الزر أعلاه ليبدأ المستر في تحليل الواقع بسخريته المعهودة..."
+                    </p>
                 </div>
             </div>
 
-            <div class="mt-16">
-                <h3 class="text-gray-500 font-black text-[10px] uppercase tracking-[0.5em] mb-8 border-b border-white/5 pb-4">Programming_DNA | مختبر المعرفة</h3>
-                <div id="lab-items" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="pt-20 border-t border-white/5">
+                <h3 class="text-gray-500 font-black text-[10px] uppercase tracking-[0.5em] mb-10">GLOBAL_INTEL | الموجز العالمي</h3>
+                <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     </div>
             </div>
+
         </div>
     </main>
 
-    <footer class="container mx-auto mt-24 pb-12 text-center opacity-30">
-        <p class="text-[10px] font-black tracking-[0.5em] uppercase">© 2026 MISTERAI SECURITY | DESIGNED BY MUSTAFA</p>
+    <footer class="container mx-auto mt-32 pb-16 text-center border-t border-white/5 pt-10">
+        <p class="text-[10px] font-black text-gray-700 tracking-[0.6em] uppercase">
+            PROGRAMMING_DNA | MISTERAI_SECURITY | 2026
+        </p>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        function launchCelebration() {
-            confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 }, colors: ['#00f2ff', '#22c55e'] });
-        }
-        function startEndlessCelebration() {
-            launchCelebration();
-            setInterval(launchCelebration, 15000); // احتفال خفيف كل 15 ثانية
-        }
-    </script>
 </body>
 </html>
