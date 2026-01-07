@@ -1,101 +1,85 @@
 /**
- * MisterAI NETWORK - Advanced Knowledge System
- * نظام جلب الأخبار + مختبر البرمجة وفهم الآلة
+ * MisterAI NETWORK - Smart Logic Engine
+ * وظائف البحث، جلب الشروحات، وفهم الآلة
  */
 
-// 1. الدالة الأساسية لجلب الأخبار (كودك الأصلي مع تحسينات طفيفة)
-async function fetchFeed(file, containerId, isTrend) {
-    const container = document.getElementById(containerId);
-    if (!container) return; 
+// 1. محرك البحث والتحقق الاستنتاجي
+async function askMisterAI() {
+    const query = document.getElementById('ai-search-input').value.toLowerCase();
+    const responseArea = document.getElementById('ai-response-area');
+    
+    if (!query) return;
+
+    responseArea.innerHTML = '<div class="text-cyan-400 animate-pulse text-sm">جاري تحليل البيانات في قارة الهدوء...</div>';
 
     try {
-        const response = await fetch(`./${file}?v=` + Date.now());
-        if (!response.ok) throw new Error('Network error');
-        
+        // فحص الملفات المحلية أولاً للسرعة والأمان
+        const response = await fetch('./algeria_news.json?v=' + Date.now());
         const data = await response.json();
-        
-        if (!data.articles || data.articles.length === 0) {
-            if(!isTrend) container.innerHTML = '<p class="text-center py-10 opacity-50">Global_Feed_Empty</p>';
-            return;
+        const article = data.articles.find(a => a.title.toLowerCase().includes(query));
+
+        if (article) {
+            responseArea.innerHTML = `
+                <div class="bg-green-500/10 border border-green-500/30 p-6 rounded-2xl animate-in slide-in-from-bottom duration-500">
+                    <span class="text-[9px] bg-green-500 text-black font-black px-2 py-0.5 rounded">مصدر مؤكد</span>
+                    <h4 class="text-white font-bold my-2 text-lg">${article.title}</h4>
+                    <p class="text-gray-400 text-xs mb-4 italic">"عزيزي الزائر، قمت بجلب هذا الخبر من أجلك. يرجى زيارة المصدر للتأكد."</p>
+                    <a href="${article.url}" target="_blank" class="inline-block bg-white text-black text-[10px] font-black px-6 py-2 rounded-lg hover:bg-cyan-400">تحقق من المصدر بنفسك</a>
+                </div>`;
+        } else {
+            responseArea.innerHTML = '<p class="text-gray-500 text-xs">لم أجد نتائج مطابقة تماماً في ذاكرتي المحلية. جرب كلمات أخرى.</p>';
         }
-        
-        container.innerHTML = '';
-        
-        data.articles.forEach(article => {
-            if(isTrend) {
-                container.innerHTML += `
-                <div class="border-b border-white/5 pb-2 hover:bg-orange-500/5 p-2 transition-all group">
-                    <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="text-gray-400 group-hover:text-orange-400 block transition-colors duration-300">
-                        ${article.title}
-                    </a>
-                </div>`;
-            } else {
-                container.innerHTML += `
-                <div class="bg-black/40 border border-cyan-500/10 p-6 rounded-xl flex flex-col h-full group hover:border-cyan-500/50 transition-all duration-500">
-                    <h4 class="font-bold text-sm mb-4 text-right group-hover:text-cyan-400 transition-colors">
-                        ${article.title}
-                    </h4>
-                    <a href="${article.url}" target="_blank" class="mt-auto text-center text-[10px] font-black text-black bg-cyan-400 py-2 rounded uppercase hover:bg-white transition-all">
-                        Open_Source
-                    </a>
-                </div>`;
-            }
-        });
-    } catch (e) { 
-        console.error("Error:", e);
+    } catch (e) {
+        responseArea.innerHTML = '<p class="text-red-500 text-xs">خطأ في الاتصال بالقاعدة.</p>';
     }
 }
 
-// 2. الدالة الجديدة: "مختبر الحكمة الرقمية" (لجلب شروحات البرمجة تلقائياً)
-async function fetchLearningLab() {
-    // جلب مقالات من DEV.to متخصصة في البرمجة والذكاء الاصطناعي
-    const apiUrl = "https://dev.to/api/articles?tag=programming&per_page=3";
-    
-    // سنقوم بإنشاء الحاوية برمجياً لكي لا نعدل في ملف HTML الخاص بك
-    let labSection = document.getElementById('learning-lab');
-    if (!labSection) {
-        const main = document.querySelector('main');
-        labSection = document.createElement('div');
-        labSection.id = 'learning-lab';
-        labSection.className = "lg:col-span-4 mt-12 border-t border-cyan-500/10 pt-10";
-        labSection.innerHTML = `
-            <h2 class="text-cyan-500 font-black mb-8 flex items-center gap-3 uppercase tracking-widest text-sm">
-                <span class="w-10 h-[1px] bg-cyan-500"></span> 
-                MisterAI Knowledge Lab | مختبر فهم الآلة
-            </h2>
-            <div id="lab-items" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-right"></div>
-        `;
-        main.appendChild(labSection);
-    }
+// 2. جلب شروحات البرمجة (مختبر فهم الآلة) آلياً
+async function fetchLearningContent() {
+    const labContainer = document.getElementById('lab-items');
+    if (!labContainer) return;
 
     try {
-        const response = await fetch(apiUrl);
-        const articles = await response.json();
-        const itemsContainer = document.getElementById('lab-items');
+        // جلب مقالات حقيقية من منصة DEV العالمية
+        const res = await fetch('https://dev.to/api/articles?tag=programming&per_page=4');
+        const articles = await res.json();
 
-        articles.forEach(article => {
-            itemsContainer.innerHTML += `
-                <div class="bg-[#0f172a]/50 border-r-2 border-green-500 p-6 rounded-l-2xl hover:bg-green-500/5 transition-all">
-                    <span class="text-[9px] text-green-400 font-bold uppercase tracking-tighter">Machine_Learning_Logic</span>
-                    <h5 class="text-white font-bold text-md my-2">${article.title}</h5>
-                    <p class="text-gray-500 text-[11px] mb-4 leading-relaxed">البرمجة ليست مجرد كود، هي أداة بناء "السيادة الرقمية" والحرية الشخصية.</p>
-                    <a href="${article.url}" target="_blank" class="text-cyan-400 text-[10px] font-black hover:underline">إبدأ التعلم الآن ←</a>
-                </div>
-            `;
+        labContainer.innerHTML = '';
+        articles.forEach(art => {
+            labContainer.innerHTML += `
+                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl hover:border-cyan-500/40 transition-all">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-[9px] text-cyan-400 font-bold tracking-tighter uppercase">Machine_DNA</span>
+                        <i class="fas fa-code text-xs text-gray-600"></i>
+                    </div>
+                    <h5 class="text-white font-bold text-sm mb-3">${art.title}</h5>
+                    <p class="text-gray-500 text-[10px] mb-4 leading-relaxed">البرمجة ليست مجرد كتابة كود، هي لغتك لبناء وطنك الرقمي المستقل.</p>
+                    <a href="${art.url}" target="_blank" class="text-cyan-500 text-[10px] font-black hover:underline uppercase">Decode_Logic →</a>
+                </div>`;
         });
     } catch (e) {
-        console.log("Lab Error:", e);
+        console.log("Learning Content Fetch Failed");
     }
 }
 
-// --- تنفيذ المهام عند تحميل الصفحة ---
+// 3. جلب الأخبار المحلية (الترند)
+async function fetchAlgeriaNews() {
+    const container = document.getElementById('algeria-trending');
+    try {
+        const res = await fetch('./algeria_news.json?v=' + Date.now());
+        const data = await res.json();
+        container.innerHTML = '';
+        data.articles.forEach(art => {
+            container.innerHTML += `
+                <a href="${art.url}" target="_blank" class="block p-3 bg-white/5 rounded-xl border border-white/5 hover:border-orange-500/30 transition-all">
+                    <p class="text-gray-400 text-[11px] font-bold">${art.title}</p>
+                </a>`;
+        });
+    } catch (e) { console.log("News Error"); }
+}
+
+// تشغيل الوظائف
 document.addEventListener('DOMContentLoaded', () => {
-    // جلب أخبار الجزائر
-    fetchFeed('algeria_news.json', 'algeria-trending', true);
-    
-    // جلب الأخبار العالمية (إذا كان لديك حاوية لها)
-    fetchFeed('news.json', 'news-container', false);
-    
-    // تشغيل مختبر المعرفة أوتوماتيكياً
-    fetchLearningLab();
+    fetchAlgeriaNews();
+    fetchLearningContent();
 });
