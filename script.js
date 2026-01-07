@@ -1,6 +1,6 @@
 /**
- * MisterAI Intelligence Engine - Hybrid Search
- * بحث محلي + بحث خارجي مع روابط تحقق
+ * MisterAI Super-Fast Engine 
+ * محرك بحث متوازي (محلّي + عالمي)
  */
 async function askMisterAI() {
     const input = document.getElementById('ai-search-input');
@@ -9,65 +9,66 @@ async function askMisterAI() {
 
     if (!query) return;
 
-    // حالة البحث والتحليل
+    // واجهة البحث الفوري
     responseArea.innerHTML = `
-        <div class="flex flex-col items-center gap-3 py-6">
-            <div class="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Global_Search_In_Progress...</p>
+        <div class="flex items-center justify-center py-8 gap-3">
+            <div class="w-5 h-5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-cyan-400 font-black text-[10px] tracking-[0.3em] uppercase">Engine_Accelerating...</p>
         </div>`;
 
     try {
-        // 1. محاولة البحث المحلي أولاً (أخبار الجزائر)
-        const localRes = await fetch('./algeria_news.json?v=' + Date.now());
-        const localData = await localRes.json();
-        const localMatch = localData.articles.find(a => a.title.toLowerCase().includes(query));
+        // مصفوفة من الوعود (Promises) للبحث في كل مكان في وقت واحد
+        const searchPromises = [
+            fetch(`./algeria_news.json?v=${Date.now()}`).then(r => r.json()).catch(() => ({articles: []})),
+            fetch(`./news.json?v=${Date.now()}`).then(r => r.json()).catch(() => ({articles: []})),
+            fetch(`https://dev.to/api/articles?tag=${query}&per_page=3`).then(r => r.json()).catch(() => [])
+        ];
 
-        if (localMatch) {
-            renderResult(localMatch, "ذاكرة MisterAI المحلية", responseArea);
-        } else {
-            // 2. إذا لم يجد محلياً، يخرج للبحث العالمي (خارجي)
-            // سنستخدم API مجاني لجلب شروحات أو أخبار خارجية
-            const externalUrl = `https://dev.to/api/articles?tag=${query}&per_page=1`;
-            const extResponse = await fetch(externalUrl);
-            const extData = await extResponse.json();
+        // تنفيذ كل عمليات البحث في نفس اللحظة (سرعة البرق)
+        const [algeriaData, newsData, globalData] = await Promise.all(searchPromises);
 
-            if (extData.length > 0) {
-                const globalMatch = {
-                    title: extData[0].title,
-                    url: extData[0].url,
-                    description: "تم جلب هذا الشرح من المصادر العالمية لتعزيز معرفتك الرقمية."
-                };
-                renderResult(globalMatch, "مختبر المعرفة العالمي (External)", responseArea);
-            } else {
-                responseArea.innerHTML = `
-                    <div class="text-center p-6 border border-white/5 rounded-2xl">
-                        <p class="text-gray-500 text-xs">لا توجد نتائج مطابقة في الشبكة حالياً. جرب كلمات مثل (JS, Python, الجزائر).</p>
-                    </div>`;
-            }
+        let resultsFound = [];
+
+        // 1. جمع النتائج المحلية
+        const localMatches = [...algeriaData.articles, ...newsData.articles].filter(a => 
+            a.title.toLowerCase().includes(query)
+        );
+        resultsFound.push(...localMatches.map(a => ({...a, source: "INTERNAL_DATABASE"})));
+
+        // 2. جمع النتائج العالمية (من المصادر الخارجية)
+        if (Array.isArray(globalData)) {
+            resultsFound.push(...globalData.map(a => ({
+                title: a.title,
+                url: a.url,
+                source: "GLOBAL_KNOWLEDGE_LAB"
+            })));
         }
-    } catch (e) {
-        responseArea.innerHTML = '<p class="text-red-500 text-[10px]">Connection_Error: سحابة البيانات غير مستقرة</p>';
-    }
-}
 
-// دالة لعرض النتيجة بأسلوب موحد وراقي
-function renderResult(data, sourceName, container) {
-    container.innerHTML = `
-        <div class="bg-gradient-to-br from-cyan-900/20 to-black border border-cyan-500/30 p-6 rounded-[2rem] animate-in zoom-in duration-500">
-            <div class="flex items-center justify-between mb-4">
-                <span class="text-[9px] bg-cyan-500 text-black font-black px-3 py-1 rounded-full uppercase">${sourceName}</span>
-                <i class="fas fa-external-link-alt text-cyan-500 text-xs"></i>
-            </div>
-            <h4 class="text-white font-bold text-lg mb-3 leading-tight">${data.title}</h4>
-            <p class="text-gray-400 text-xs mb-5 italic">"تم العثور على هذا الرابط. نرجو منك زيارة المصدر الخارجي للتحقق من صحة المعلومات بأنظمة حمايتك الخاصة."</p>
+        // عرض النتائج
+        if (resultsFound.length > 0) {
+            responseArea.innerHTML = '<div class="grid grid-cols-1 gap-4"></div>';
+            const grid = responseArea.querySelector('div');
             
-            <div class="flex flex-col gap-3">
-                <a href="${data.url}" target="_blank" 
-                   class="bg-white text-black text-center font-black py-3 rounded-xl hover:bg-cyan-400 transition-all text-xs uppercase tracking-tighter">
-                   Open_Source_Link | فتح الرابط الخارجي
-                </a>
-                <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Security Check Required @ Mustafa_Network</p>
-            </div>
-        </div>
-    `;
+            resultsFound.slice(0, 4).forEach(res => {
+                grid.innerHTML += `
+                    <div class="bg-black/60 border-r-4 border-cyan-500 p-5 rounded-l-2xl animate-in slide-in-from-right duration-300">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[8px] bg-cyan-500 text-black px-2 py-0.5 rounded font-black">${res.source}</span>
+                        </div>
+                        <h4 class="text-white font-bold text-sm mb-3">${res.title}</h4>
+                        <div class="flex items-center justify-between">
+                            <a href="${res.url}" target="_blank" class="text-cyan-400 text-[10px] font-black hover:text-white transition-all uppercase">
+                                Verify_Link_External →
+                            </a>
+                            <i class="fas fa-shield-alt text-gray-700 text-[10px]"></i>
+                        </div>
+                    </div>`;
+            });
+        } else {
+            responseArea.innerHTML = '<p class="text-center text-gray-500 text-xs py-4">لم أجد نتائج مطابقة، حاول بكلمة أخرى مثل "الجزائر" أو "برمجة".</p>';
+        }
+
+    } catch (e) {
+        responseArea.innerHTML = '<p class="text-red-500 text-[10px] text-center">SYSTEM_OVERLOAD: يرجى المحاولة لاحقاً</p>';
+    }
 }
