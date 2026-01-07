@@ -1,85 +1,73 @@
 /**
- * MisterAI NETWORK - Smart Logic Engine
- * وظائف البحث، جلب الشروحات، وفهم الآلة
+ * MisterAI Intelligence Engine - Hybrid Search
+ * بحث محلي + بحث خارجي مع روابط تحقق
  */
-
-// 1. محرك البحث والتحقق الاستنتاجي
 async function askMisterAI() {
-    const query = document.getElementById('ai-search-input').value.toLowerCase();
+    const input = document.getElementById('ai-search-input');
     const responseArea = document.getElementById('ai-response-area');
-    
+    const query = input.value.trim().toLowerCase();
+
     if (!query) return;
 
-    responseArea.innerHTML = '<div class="text-cyan-400 animate-pulse text-sm">جاري تحليل البيانات في قارة الهدوء...</div>';
+    // حالة البحث والتحليل
+    responseArea.innerHTML = `
+        <div class="flex flex-col items-center gap-3 py-6">
+            <div class="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Global_Search_In_Progress...</p>
+        </div>`;
 
     try {
-        // فحص الملفات المحلية أولاً للسرعة والأمان
-        const response = await fetch('./algeria_news.json?v=' + Date.now());
-        const data = await response.json();
-        const article = data.articles.find(a => a.title.toLowerCase().includes(query));
+        // 1. محاولة البحث المحلي أولاً (أخبار الجزائر)
+        const localRes = await fetch('./algeria_news.json?v=' + Date.now());
+        const localData = await localRes.json();
+        const localMatch = localData.articles.find(a => a.title.toLowerCase().includes(query));
 
-        if (article) {
-            responseArea.innerHTML = `
-                <div class="bg-green-500/10 border border-green-500/30 p-6 rounded-2xl animate-in slide-in-from-bottom duration-500">
-                    <span class="text-[9px] bg-green-500 text-black font-black px-2 py-0.5 rounded">مصدر مؤكد</span>
-                    <h4 class="text-white font-bold my-2 text-lg">${article.title}</h4>
-                    <p class="text-gray-400 text-xs mb-4 italic">"عزيزي الزائر، قمت بجلب هذا الخبر من أجلك. يرجى زيارة المصدر للتأكد."</p>
-                    <a href="${article.url}" target="_blank" class="inline-block bg-white text-black text-[10px] font-black px-6 py-2 rounded-lg hover:bg-cyan-400">تحقق من المصدر بنفسك</a>
-                </div>`;
+        if (localMatch) {
+            renderResult(localMatch, "ذاكرة MisterAI المحلية", responseArea);
         } else {
-            responseArea.innerHTML = '<p class="text-gray-500 text-xs">لم أجد نتائج مطابقة تماماً في ذاكرتي المحلية. جرب كلمات أخرى.</p>';
+            // 2. إذا لم يجد محلياً، يخرج للبحث العالمي (خارجي)
+            // سنستخدم API مجاني لجلب شروحات أو أخبار خارجية
+            const externalUrl = `https://dev.to/api/articles?tag=${query}&per_page=1`;
+            const extResponse = await fetch(externalUrl);
+            const extData = await extResponse.json();
+
+            if (extData.length > 0) {
+                const globalMatch = {
+                    title: extData[0].title,
+                    url: extData[0].url,
+                    description: "تم جلب هذا الشرح من المصادر العالمية لتعزيز معرفتك الرقمية."
+                };
+                renderResult(globalMatch, "مختبر المعرفة العالمي (External)", responseArea);
+            } else {
+                responseArea.innerHTML = `
+                    <div class="text-center p-6 border border-white/5 rounded-2xl">
+                        <p class="text-gray-500 text-xs">لا توجد نتائج مطابقة في الشبكة حالياً. جرب كلمات مثل (JS, Python, الجزائر).</p>
+                    </div>`;
+            }
         }
     } catch (e) {
-        responseArea.innerHTML = '<p class="text-red-500 text-xs">خطأ في الاتصال بالقاعدة.</p>';
+        responseArea.innerHTML = '<p class="text-red-500 text-[10px]">Connection_Error: سحابة البيانات غير مستقرة</p>';
     }
 }
 
-// 2. جلب شروحات البرمجة (مختبر فهم الآلة) آلياً
-async function fetchLearningContent() {
-    const labContainer = document.getElementById('lab-items');
-    if (!labContainer) return;
-
-    try {
-        // جلب مقالات حقيقية من منصة DEV العالمية
-        const res = await fetch('https://dev.to/api/articles?tag=programming&per_page=4');
-        const articles = await res.json();
-
-        labContainer.innerHTML = '';
-        articles.forEach(art => {
-            labContainer.innerHTML += `
-                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl hover:border-cyan-500/40 transition-all">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-[9px] text-cyan-400 font-bold tracking-tighter uppercase">Machine_DNA</span>
-                        <i class="fas fa-code text-xs text-gray-600"></i>
-                    </div>
-                    <h5 class="text-white font-bold text-sm mb-3">${art.title}</h5>
-                    <p class="text-gray-500 text-[10px] mb-4 leading-relaxed">البرمجة ليست مجرد كتابة كود، هي لغتك لبناء وطنك الرقمي المستقل.</p>
-                    <a href="${art.url}" target="_blank" class="text-cyan-500 text-[10px] font-black hover:underline uppercase">Decode_Logic →</a>
-                </div>`;
-        });
-    } catch (e) {
-        console.log("Learning Content Fetch Failed");
-    }
+// دالة لعرض النتيجة بأسلوب موحد وراقي
+function renderResult(data, sourceName, container) {
+    container.innerHTML = `
+        <div class="bg-gradient-to-br from-cyan-900/20 to-black border border-cyan-500/30 p-6 rounded-[2rem] animate-in zoom-in duration-500">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-[9px] bg-cyan-500 text-black font-black px-3 py-1 rounded-full uppercase">${sourceName}</span>
+                <i class="fas fa-external-link-alt text-cyan-500 text-xs"></i>
+            </div>
+            <h4 class="text-white font-bold text-lg mb-3 leading-tight">${data.title}</h4>
+            <p class="text-gray-400 text-xs mb-5 italic">"تم العثور على هذا الرابط. نرجو منك زيارة المصدر الخارجي للتحقق من صحة المعلومات بأنظمة حمايتك الخاصة."</p>
+            
+            <div class="flex flex-col gap-3">
+                <a href="${data.url}" target="_blank" 
+                   class="bg-white text-black text-center font-black py-3 rounded-xl hover:bg-cyan-400 transition-all text-xs uppercase tracking-tighter">
+                   Open_Source_Link | فتح الرابط الخارجي
+                </a>
+                <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Security Check Required @ Mustafa_Network</p>
+            </div>
+        </div>
+    `;
 }
-
-// 3. جلب الأخبار المحلية (الترند)
-async function fetchAlgeriaNews() {
-    const container = document.getElementById('algeria-trending');
-    try {
-        const res = await fetch('./algeria_news.json?v=' + Date.now());
-        const data = await res.json();
-        container.innerHTML = '';
-        data.articles.forEach(art => {
-            container.innerHTML += `
-                <a href="${art.url}" target="_blank" class="block p-3 bg-white/5 rounded-xl border border-white/5 hover:border-orange-500/30 transition-all">
-                    <p class="text-gray-400 text-[11px] font-bold">${art.title}</p>
-                </a>`;
-        });
-    } catch (e) { console.log("News Error"); }
-}
-
-// تشغيل الوظائف
-document.addEventListener('DOMContentLoaded', () => {
-    fetchAlgeriaNews();
-    fetchLearningContent();
-});
