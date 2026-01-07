@@ -1,66 +1,58 @@
 /**
- * MisterAI NETWORK - News Fetching System
- * دالة جلب البيانات وعرضها في الواجهة
+ * MisterAI NETWORK - Knowledge & Programming System
+ * جلب شروحات البرمجة وفلسفة "فهم الآلة"
  */
-async function fetchFeed(file, containerId, isTrend) {
+async function fetchTutorials(tag, containerId) {
     const container = document.getElementById(containerId);
-    
-    // التأكد من وجود الحاوية في الصفحة قبل البدء
-    if (!container) return; 
+    if (!container) return;
+
+    // استخدام API عالمي (مثل DEV.to) لجلب مقالات البرمجة مباشرة
+    const apiUrl = `https://dev.to/api/articles?tag=${tag}&per_page=4`;
 
     try {
-        // إضافة timestamp لمنع المتصفح من عرض بيانات قديمة مخزنة (Cache)
-        const response = await fetch(`./${file}?v=` + Date.now());
-        
-        // التحقق من أن الاستجابة ناجحة
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data = await response.json();
-        
-        // التعامل مع حالة الملف الفارغ أو عدم وجود مقالات
-        if (!data.articles || data.articles.length === 0) {
-            if(!isTrend) {
-                container.innerHTML = '<p class="text-center col-span-full py-20 text-gray-600 font-black tracking-widest uppercase animate-pulse">Global_Feed_Empty</p>';
-            }
-            return;
-        }
-        
-        // مسح محتوى الحاوية قبل إضافة الأخبار الجديدة
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('API limit or error');
+        const articles = await response.json();
+
         container.innerHTML = '';
-        
-        data.articles.forEach(article => {
-            if(isTrend) {
-                // تصميم قسم الترند الجزائري (الجانبي)
-                container.innerHTML += `
-                <div class="border-b border-white/5 pb-2 hover:bg-orange-500/5 p-2 transition-all group">
-                    <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="text-gray-400 group-hover:text-orange-400 block transition-colors duration-300">
-                        ${article.title}
+
+        articles.forEach(article => {
+            // هنا ندمج "فهم الآلة" و "أهمية البرمجة" في التصميم
+            container.innerHTML += `
+            <div class="bg-[#0a0a0a] border-l-4 border-cyan-500 p-5 rounded-r-xl mb-4 group hover:bg-cyan-900/10 transition-all">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-[10px] bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded uppercase font-bold">Machine_Learning_Logic</span>
+                    <span class="text-gray-600 text-[10px]">${new Date(article.published_at).toLocaleDateString()}</span>
+                </div>
+                <h4 class="text-white font-bold text-lg mb-2 group-hover:text-cyan-300 transition-colors">
+                    ${article.title}
+                </h4>
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                    هذا الشرح يعزز قدرتك على بناء أنظمة مستقلة. تذكر: "البرمجة هي لغة الحرية".
+                </p>
+                <div class="flex items-center justify-between">
+                    <a href="${article.url}" target="_blank" class="text-cyan-400 text-xs font-black uppercase tracking-tighter hover:text-white transition-colors">
+                        Explore_The_Code_DNA →
                     </a>
-                </div>`;
-            } else {
-                // تصميم قسم الأخبار العالمية (الرئيسي) مع تأثير اللمعان
-                container.innerHTML += `
-                <div class="bg-black/40 border border-cyan-500/10 p-6 rounded-xl flex flex-col h-full group shadow-lg shadow-cyan-500/5 hover:shadow-cyan-500/20 transition-all duration-500">
-                    <h4 class="font-bold text-sm mb-4 text-right group-hover:text-cyan-400 transition-colors leading-relaxed">
-                        ${article.title}
-                    </h4>
-                    <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="mt-auto text-center text-[10px] font-black text-black bg-cyan-400 py-2 rounded uppercase hover:bg-white transition-all shadow-md">
-                        Open_Source
-                    </a>
-                </div>`;
-            }
+                    <div class="flex gap-2">
+                        ${article.tag_list.slice(0, 2).map(t => `<span class="text-gray-500 text-[9px]">#${t}</span>`).join('')}
+                    </div>
+                </div>
+            </div>`;
         });
-    } catch (e) { 
-        console.error("Error fetching " + file + ":", e);
-        // في حال حدوث خطأ في الرابط أو الملف
-        if(!isTrend) {
-            container.innerHTML = '<p class="text-center col-span-full py-20 text-red-500/50 font-black">SYSTEM_LINK_BROKEN</p>';
-        }
+    } catch (e) {
+        console.error("Tutorials Error:", e);
+        container.innerHTML = '<p class="text-gray-600 text-xs italic">Waiting for knowledge stream...</p>';
     }
 }
 
-// 1. استدعاء الأخبار العالمية (تأكد أن الملف news.json يتم تحديثه في GitHub)
+// --- الاستدعاءات ---
+
+// 1. الأخبار العالمية (كودك الأصلي)
 fetchFeed('news.json', 'news-container', false);
 
-// 2. استدعاء أخبار الترند الجزائري
+// 2. أخبار الترند (كودك الأصلي)
 fetchFeed('algeria_news.json', 'algeria-trending', true);
+
+// 3. قسم "فهم الآلة والبرمجة" الجديد (تلقائي بالكامل)
+fetchTutorials('programming', 'learning-lab-container');
