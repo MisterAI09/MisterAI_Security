@@ -1,33 +1,25 @@
-name: Auto Update News
+name: Deploy MisterAI Network
+
 on:
-  schedule:
-    - cron: '0 */4 * * *'
+  push:
+    branches:
+      - main
   workflow_dispatch:
-permissions:
-  contents: write
+
 jobs:
-  update:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Fetch Global & Algeria News
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Inject Secrets into script.js
         run: |
-          # جلب الأخبار العالمية التقنية
-          curl -G "https://newsapi.org/v2/top-headlines" \
-          --data-urlencode "category=technology" \
-          --data-urlencode "language=ar" \
-          --data-urlencode "apiKey=${{ secrets.NEWS_API_KEY }}" > news.json
-          
-          # جلب أخبار الجزائر
-          curl -G "https://newsapi.org/v2/everything" \
-          --data-urlencode "q=الجزائر" \
-          --data-urlencode "language=ar" \
-          --data-urlencode "sortBy=publishedAt" \
-          --data-urlencode "apiKey=${{ secrets.NEWS_API_KEY }}" > algeria_news.json
-      - name: Commit and Push
-        run: |
-          git config --local user.email "misterai@github.com"
-          git config --local user.name "MisterAI-Bot"
-          git add news.json algeria_news.json
-          git commit -m "Fixing global news feed" || echo "No changes"
-          git push
+          sed -i "s|YOUR_GEMINI_KEY|${{ secrets.GEMINI_API_KEY }}|g" script.js
+          sed -i "s|YOUR_NEWS_KEY|${{ secrets.NEWS_API_KEY }}|g" script.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
